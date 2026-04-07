@@ -1,0 +1,90 @@
+{
+  "index": 58,
+  "name": "중앙토지수용위원회 결정문 본문 조회 API",
+  "target": "oclt",
+  "requestUrl": "https://www.law.go.kr/DRF/lawService.do?target=oclt",
+  "requestParams": [
+    {
+      "name": "OC",
+      "type": "string(필수)",
+      "description": "사용자 이메일의 ID(g4c@korea.kr일경우 OC값=g4c)"
+    },
+    {
+      "name": "target",
+      "type": "string(필수)",
+      "description": "서비스 대상 (중앙토지수용위원회 : oclt)"
+    },
+    {
+      "name": "type",
+      "type": "char(필수)",
+      "description": "출력 형태 : HTML/XML/JSON"
+    },
+    {
+      "name": "ID",
+      "type": "char(필수)",
+      "description": "결정문 일련번호"
+    }
+  ],
+  "responseFields": [
+    {
+      "name": "결정문일련번호",
+      "type": "int",
+      "description": "결정문 일련번호"
+    },
+    {
+      "name": "제목",
+      "type": "string",
+      "description": "제목"
+    },
+    {
+      "name": "관련법리",
+      "type": "string",
+      "description": "관련 법리"
+    },
+    {
+      "name": "관련규정",
+      "type": "string",
+      "description": "관련 규정"
+    },
+    {
+      "name": "판단",
+      "type": "string",
+      "description": "판단"
+    },
+    {
+      "name": "근거",
+      "type": "string",
+      "description": "근거"
+    },
+    {
+      "name": "주해",
+      "type": "string",
+      "description": "주해"
+    },
+    {
+      "name": "각주번호",
+      "type": "int",
+      "description": "각주번호"
+    },
+    {
+      "name": "각주내용",
+      "type": "string",
+      "description": "각주내용"
+    }
+  ],
+  "sampleUrls": [
+    {
+      "description": "1. 중앙토지수용위원회 결정문 HTML 상세조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=oclt&ID=4973&type=HTML"
+    },
+    {
+      "description": "2. 중앙토지수용위원회 결정문 XML 상세조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=oclt&ID=4965&type=XML"
+    },
+    {
+      "description": "3. 중앙토지수용위원회 결정문 JSON 상세조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=oclt&ID=4971&type=JSON"
+    }
+  ],
+  "crawledAt": "2025-12-10T09:22:40.828Z"
+}

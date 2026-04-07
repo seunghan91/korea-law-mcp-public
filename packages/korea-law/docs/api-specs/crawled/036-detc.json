@@ -1,0 +1,115 @@
+{
+  "index": 36,
+  "name": "헌재결정례 본문 조회 API",
+  "target": "detc",
+  "requestUrl": "http://www.law.go.kr/DRF/lawService.do?target=detc",
+  "requestParams": [
+    {
+      "name": "OC",
+      "type": "string(필수)",
+      "description": "사용자 이메일의 ID(g4c@korea.kr일경우 OC값=g4c)"
+    },
+    {
+      "name": "target",
+      "type": "string : detc(필수)",
+      "description": "서비스 대상"
+    },
+    {
+      "name": "type",
+      "type": "char(필수)",
+      "description": "출력 형태 : HTML/XML/JSON"
+    },
+    {
+      "name": "ID",
+      "type": "char(필수)",
+      "description": "헌재결정례 일련번호"
+    },
+    {
+      "name": "LM",
+      "type": "string",
+      "description": "헌재결정례명"
+    }
+  ],
+  "responseFields": [
+    {
+      "name": "헌재결정례일련번호",
+      "type": "int",
+      "description": "헌재결정례일련번호"
+    },
+    {
+      "name": "종국일자",
+      "type": "int",
+      "description": "종국일자"
+    },
+    {
+      "name": "사건번호",
+      "type": "string",
+      "description": "사건번호"
+    },
+    {
+      "name": "사건명",
+      "type": "string",
+      "description": "사건명"
+    },
+    {
+      "name": "사건종류명",
+      "type": "string",
+      "description": "사건종류명"
+    },
+    {
+      "name": "사건종류코드",
+      "type": "int",
+      "description": "사건종류코드"
+    },
+    {
+      "name": "재판부구분코드",
+      "type": "int",
+      "description": "재판부구분코드(전원재판부:430201, 지정재판부:430202)"
+    },
+    {
+      "name": "판시사항",
+      "type": "string",
+      "description": "판시사항"
+    },
+    {
+      "name": "결정요지",
+      "type": "string",
+      "description": "결정요지"
+    },
+    {
+      "name": "전문",
+      "type": "string",
+      "description": "전문"
+    },
+    {
+      "name": "참조조문",
+      "type": "string",
+      "description": "참조조문"
+    },
+    {
+      "name": "참조판례",
+      "type": "string",
+      "description": "참조판례"
+    },
+    {
+      "name": "심판대상조문",
+      "type": "string",
+      "description": "심판대상조문"
+    }
+  ],
+  "sampleUrls": [
+    {
+      "description": "1. 헌재결정례 일련번호가 58386인 헌재결정례 HTML 조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=detc&ID=58386&type=HTML"
+    },
+    {
+      "description": "2. 자동차관리법제26조등위헌확인등 헌재결정례 XML 조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=detc&ID=127830&LM=%EC%9E%90%EB%8F%99%EC%B0%A8%EA%B4%80%EB%A6%AC%EB%B2%95%EC%A0%9C26%EC%A1%B0%EB%93%B1%EC%9C%84%ED%97%8C%ED%99%95%EC%9D%B8%EB%93%B1&type=XML"
+    },
+    {
+      "description": "3. 헌재결정례 일련번호가 58400인 헌재결정례 JSON 조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=detc&ID=58400&type=JSON"
+    }
+  ],
+  "crawledAt": "2025-12-10T09:22:29.387Z"
+}

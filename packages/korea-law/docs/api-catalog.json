@@ -1,0 +1,1929 @@
+{
+  "$schema": "./api-catalog-schema.json",
+  "version": "1.0.0",
+  "lastUpdated": "2025-12-10",
+  "source": "https://open.law.go.kr",
+  "totalApis": 191,
+  "categories": [
+    {
+      "id": "law",
+      "name": "법령",
+      "subcategories": [
+        {
+          "id": "law-main",
+          "name": "본문",
+          "apis": [
+            {
+              "id": "law-current-enforcement-list",
+              "name": "현행법령(시행일) 목록 조회",
+              "type": "list",
+              "target": "law",
+              "endpoint": "/lawSearch.do",
+              "note": "국가법령정보센터 기준",
+              "implemented": true
+            },
+            {
+              "id": "law-current-enforcement-detail",
+              "name": "현행법령(시행일) 본문 조회",
+              "type": "detail",
+              "target": "law",
+              "endpoint": "/lawService.do",
+              "note": "국가법령정보센터 기준",
+              "implemented": true
+            },
+            {
+              "id": "law-current-promulgation-list",
+              "name": "현행법령(공포일) 목록 조회",
+              "type": "list",
+              "target": "law",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "law-current-promulgation-detail",
+              "name": "현행법령(공포일) 본문 조회",
+              "type": "detail",
+              "target": "law",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            },
+            {
+              "id": "law-history-list",
+              "name": "법령 연혁 목록 조회",
+              "type": "list",
+              "target": "law",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "law-history-detail",
+              "name": "법령 연혁 본문 조회",
+              "type": "detail",
+              "target": "law",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "law-article",
+          "name": "조항호목",
+          "apis": [
+            {
+              "id": "law-article-enforcement",
+              "name": "현행법령(시행일) 본문 조항호목 조회",
+              "type": "detail",
+              "target": "law",
+              "endpoint": "/lawService.do",
+              "note": "국가법령정보센터 기준",
+              "implemented": false
+            },
+            {
+              "id": "law-article-promulgation",
+              "name": "현행법령(공포일) 본문 조항호목 조회",
+              "type": "detail",
+              "target": "law",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "law-english",
+          "name": "영문법령",
+          "apis": [
+            {
+              "id": "law-english-list",
+              "name": "영문 법령 목록 조회",
+              "type": "list",
+              "target": "lawEng",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "law-english-detail",
+              "name": "영문 법령 본문 조회",
+              "type": "detail",
+              "target": "lawEng",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "law-history-log",
+          "name": "이력",
+          "apis": [
+            {
+              "id": "law-change-history-list",
+              "name": "법령 변경이력 목록 조회",
+              "type": "list",
+              "target": "law",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "law-article-revision-list",
+              "name": "일자별 조문 개정 이력 목록 조회",
+              "type": "list",
+              "target": "law",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "law-article-change-list",
+              "name": "조문별 변경 이력 목록 조회",
+              "type": "list",
+              "target": "law",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "law-linkage",
+          "name": "연계",
+          "apis": [
+            {
+              "id": "law-to-ordinance-link",
+              "name": "법령 기준 자치법규 연계 관련 목록 조회",
+              "type": "list",
+              "target": "law",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "law-ordinance-status",
+              "name": "법령-자치법규 연계현황 조회",
+              "type": "list",
+              "target": "law",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "delegated-law-detail",
+              "name": "위임법령 조회",
+              "type": "detail",
+              "target": "law",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "law-extra",
+          "name": "부가서비스",
+          "apis": [
+            {
+              "id": "law-system-list",
+              "name": "법령 체계도 목록 조회",
+              "type": "list",
+              "target": "lawSys",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "law-system-detail",
+              "name": "법령 체계도 본문 조회",
+              "type": "detail",
+              "target": "lawSys",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            },
+            {
+              "id": "law-comparison-list",
+              "name": "신구법 목록 조회",
+              "type": "list",
+              "target": "lawComp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "law-comparison-detail",
+              "name": "신구법 본문 조회",
+              "type": "detail",
+              "target": "lawComp",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            },
+            {
+              "id": "law-triple-comparison-list",
+              "name": "3단 비교 목록 조회",
+              "type": "list",
+              "target": "lawTriple",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "law-triple-comparison-detail",
+              "name": "3단 비교 본문 조회",
+              "type": "detail",
+              "target": "lawTriple",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            },
+            {
+              "id": "law-abbreviation",
+              "name": "법률명 약칭 조회",
+              "type": "list",
+              "target": "law",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "law-deleted-list",
+              "name": "삭제 데이터 목록 조회",
+              "type": "list",
+              "target": "law",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "law-overview-list",
+              "name": "한눈보기 목록 조회",
+              "type": "list",
+              "target": "lawOverview",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "law-overview-detail",
+              "name": "한눈보기 본문 조회",
+              "type": "detail",
+              "target": "lawOverview",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "admrul",
+      "name": "행정규칙",
+      "subcategories": [
+        {
+          "id": "admrul-main",
+          "name": "본문",
+          "apis": [
+            {
+              "id": "admrul-list",
+              "name": "행정규칙 목록 조회",
+              "type": "list",
+              "target": "admrul",
+              "endpoint": "/lawSearch.do",
+              "implemented": true
+            },
+            {
+              "id": "admrul-detail",
+              "name": "행정규칙 본문 조회",
+              "type": "detail",
+              "target": "admrul",
+              "endpoint": "/lawService.do",
+              "implemented": true
+            }
+          ]
+        },
+        {
+          "id": "admrul-extra",
+          "name": "부가서비스",
+          "apis": [
+            {
+              "id": "admrul-comparison-list",
+              "name": "행정규칙 신구법 비교 목록 조회",
+              "type": "list",
+              "target": "admrulComp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "admrul-comparison-detail",
+              "name": "행정규칙 신구법 비교 본문 조회",
+              "type": "detail",
+              "target": "admrulComp",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ordin",
+      "name": "자치법규",
+      "subcategories": [
+        {
+          "id": "ordin-main",
+          "name": "본문",
+          "apis": [
+            {
+              "id": "ordin-list",
+              "name": "자치법규 목록 조회",
+              "type": "list",
+              "target": "ordin",
+              "endpoint": "/lawSearch.do",
+              "implemented": true
+            },
+            {
+              "id": "ordin-detail",
+              "name": "자치법규 본문 조회",
+              "type": "detail",
+              "target": "ordin",
+              "endpoint": "/lawService.do",
+              "implemented": true
+            }
+          ]
+        },
+        {
+          "id": "ordin-linkage",
+          "name": "연계",
+          "apis": [
+            {
+              "id": "ordin-to-law-link",
+              "name": "자치법규 기준 법령 연계 관련 목록 조회",
+              "type": "list",
+              "target": "ordin",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prec",
+      "name": "판례",
+      "subcategories": [
+        {
+          "id": "prec-main",
+          "name": "본문",
+          "apis": [
+            {
+              "id": "prec-list",
+              "name": "판례 목록 조회",
+              "type": "list",
+              "target": "prec",
+              "endpoint": "/lawSearch.do",
+              "implemented": true
+            },
+            {
+              "id": "prec-detail",
+              "name": "판례 본문 조회",
+              "type": "detail",
+              "target": "prec",
+              "endpoint": "/lawService.do",
+              "implemented": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "detc",
+      "name": "헌재결정례",
+      "subcategories": [
+        {
+          "id": "detc-main",
+          "name": "본문",
+          "apis": [
+            {
+              "id": "detc-list",
+              "name": "헌재결정례 목록 조회",
+              "type": "list",
+              "target": "detc",
+              "endpoint": "/lawSearch.do",
+              "implemented": true
+            },
+            {
+              "id": "detc-detail",
+              "name": "헌재결정례 본문 조회",
+              "type": "detail",
+              "target": "detc",
+              "endpoint": "/lawService.do",
+              "implemented": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "expc",
+      "name": "법령해석례",
+      "subcategories": [
+        {
+          "id": "expc-main",
+          "name": "본문",
+          "apis": [
+            {
+              "id": "expc-list",
+              "name": "법령해석례 목록 조회",
+              "type": "list",
+              "target": "expc",
+              "endpoint": "/lawSearch.do",
+              "implemented": true
+            },
+            {
+              "id": "expc-detail",
+              "name": "법령해석례 본문 조회",
+              "type": "detail",
+              "target": "expc",
+              "endpoint": "/lawService.do",
+              "implemented": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "flgn",
+      "name": "행정심판례",
+      "subcategories": [
+        {
+          "id": "flgn-main",
+          "name": "본문",
+          "apis": [
+            {
+              "id": "flgn-list",
+              "name": "행정심판례 목록 조회",
+              "type": "list",
+              "target": "flgn",
+              "endpoint": "/lawSearch.do",
+              "implemented": true
+            },
+            {
+              "id": "flgn-detail",
+              "name": "행정심판례 본문 조회",
+              "type": "detail",
+              "target": "flgn",
+              "endpoint": "/lawService.do",
+              "implemented": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "committee",
+      "name": "위원회 결정문",
+      "subcategories": [
+        {
+          "id": "committee-pipc",
+          "name": "개인정보보호위원회",
+          "apis": [
+            {
+              "id": "committee-pipc-list",
+              "name": "개인정보보호위원회 결정문 목록 조회",
+              "type": "list",
+              "target": "pipc",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "committee-pipc-detail",
+              "name": "개인정보보호위원회 결정문 본문 조회",
+              "type": "detail",
+              "target": "pipc",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "committee-eic",
+          "name": "고용보험심사위원회",
+          "apis": [
+            {
+              "id": "committee-eic-list",
+              "name": "고용보험심사위원회 결정문 목록 조회",
+              "type": "list",
+              "target": "eic",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "committee-eic-detail",
+              "name": "고용보험심사위원회 결정문 본문 조회",
+              "type": "detail",
+              "target": "eic",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "committee-ftc",
+          "name": "공정거래위원회",
+          "apis": [
+            {
+              "id": "committee-ftc-list",
+              "name": "공정거래위원회 결정문 목록 조회",
+              "type": "list",
+              "target": "ftc",
+              "endpoint": "/lawSearch.do",
+              "implemented": true
+            },
+            {
+              "id": "committee-ftc-detail",
+              "name": "공정거래위원회 결정문 본문 조회",
+              "type": "detail",
+              "target": "ftc",
+              "endpoint": "/lawService.do",
+              "implemented": true
+            }
+          ]
+        },
+        {
+          "id": "committee-acrc",
+          "name": "국민권익위원회",
+          "apis": [
+            {
+              "id": "committee-acrc-list",
+              "name": "국민권익위원회 결정문 목록 조회",
+              "type": "list",
+              "target": "acrc",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "committee-acrc-detail",
+              "name": "국민권익위원회 결정문 본문 조회",
+              "type": "detail",
+              "target": "acrc",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "committee-fsc",
+          "name": "금융위원회",
+          "apis": [
+            {
+              "id": "committee-fsc-list",
+              "name": "금융위원회 결정문 목록 조회",
+              "type": "list",
+              "target": "fsc",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "committee-fsc-detail",
+              "name": "금융위원회 결정문 본문 조회",
+              "type": "detail",
+              "target": "fsc",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "committee-nlrc",
+          "name": "노동위원회",
+          "apis": [
+            {
+              "id": "committee-nlrc-list",
+              "name": "노동위원회 결정문 목록 조회",
+              "type": "list",
+              "target": "nlrc",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "committee-nlrc-detail",
+              "name": "노동위원회 결정문 본문 조회",
+              "type": "detail",
+              "target": "nlrc",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "committee-kcc",
+          "name": "방송미디어통신위원회",
+          "apis": [
+            {
+              "id": "committee-kcc-list",
+              "name": "방송미디어통신위원회 결정문 목록 조회",
+              "type": "list",
+              "target": "kcc",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "committee-kcc-detail",
+              "name": "방송미디어통신위원회 결정문 본문 조회",
+              "type": "detail",
+              "target": "kcc",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "committee-comwel",
+          "name": "산업재해보상보험재심사위원회",
+          "apis": [
+            {
+              "id": "committee-comwel-list",
+              "name": "산업재해보상보험재심사위원회 결정문 목록 조회",
+              "type": "list",
+              "target": "comwel",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "committee-comwel-detail",
+              "name": "산업재해보상보험재심사위원회 결정문 본문 조회",
+              "type": "detail",
+              "target": "comwel",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "committee-clac",
+          "name": "중앙토지수용위원회",
+          "apis": [
+            {
+              "id": "committee-clac-list",
+              "name": "중앙토지수용위원회 결정문 목록 조회",
+              "type": "list",
+              "target": "clac",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "committee-clac-detail",
+              "name": "중앙토지수용위원회 결정문 본문 조회",
+              "type": "detail",
+              "target": "clac",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "committee-edrc",
+          "name": "중앙환경분쟁조정위원회",
+          "apis": [
+            {
+              "id": "committee-edrc-list",
+              "name": "중앙환경분쟁조정위원회 결정문 목록 조회",
+              "type": "list",
+              "target": "edrc",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "committee-edrc-detail",
+              "name": "중앙환경분쟁조정위원회 결정문 본문 조회",
+              "type": "detail",
+              "target": "edrc",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "committee-sfc",
+          "name": "증권선물위원회",
+          "apis": [
+            {
+              "id": "committee-sfc-list",
+              "name": "증권선물위원회 결정문 목록 조회",
+              "type": "list",
+              "target": "sfc",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "committee-sfc-detail",
+              "name": "증권선물위원회 결정문 본문 조회",
+              "type": "detail",
+              "target": "sfc",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "committee-nhrck",
+          "name": "국가인권위원회",
+          "apis": [
+            {
+              "id": "committee-nhrck-list",
+              "name": "국가인권위원회 결정문 목록 조회",
+              "type": "list",
+              "target": "nhrck",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "committee-nhrck-detail",
+              "name": "국가인권위원회 결정문 본문 조회",
+              "type": "detail",
+              "target": "nhrck",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "trty",
+      "name": "조약",
+      "subcategories": [
+        {
+          "id": "trty-main",
+          "name": "본문",
+          "apis": [
+            {
+              "id": "trty-list",
+              "name": "조약 목록 조회",
+              "type": "list",
+              "target": "trty",
+              "endpoint": "/lawSearch.do",
+              "implemented": true
+            },
+            {
+              "id": "trty-detail",
+              "name": "조약 본문 조회",
+              "type": "detail",
+              "target": "trty",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "attachment",
+      "name": "별표ㆍ서식",
+      "subcategories": [
+        {
+          "id": "attachment-law",
+          "name": "법령",
+          "apis": [
+            {
+              "id": "attachment-law-list",
+              "name": "법령 별표ㆍ서식 목록 조회",
+              "type": "list",
+              "target": "lawAttach",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "attachment-admrul",
+          "name": "행정규칙",
+          "apis": [
+            {
+              "id": "attachment-admrul-list",
+              "name": "행정규칙 별표ㆍ서식 목록 조회",
+              "type": "list",
+              "target": "admrulAttach",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "attachment-ordin",
+          "name": "자치법규",
+          "apis": [
+            {
+              "id": "attachment-ordin-list",
+              "name": "자치법규 별표ㆍ서식 목록 조회",
+              "type": "list",
+              "target": "ordinAttach",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "institution",
+      "name": "학칙ㆍ공단ㆍ공공기관",
+      "subcategories": [
+        {
+          "id": "institution-main",
+          "name": "본문",
+          "apis": [
+            {
+              "id": "institution-list",
+              "name": "학칙ㆍ공단ㆍ공공기관 목록 조회",
+              "type": "list",
+              "target": "inst",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "institution-detail",
+              "name": "학칙ㆍ공단ㆍ공공기관 본문 조회",
+              "type": "detail",
+              "target": "inst",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "term",
+      "name": "법령용어",
+      "subcategories": [
+        {
+          "id": "term-main",
+          "name": "본문",
+          "apis": [
+            {
+              "id": "term-list",
+              "name": "법령 용어 목록 조회",
+              "type": "list",
+              "target": "lawTerm",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "term-detail",
+              "name": "법령 용어 본문 조회",
+              "type": "detail",
+              "target": "lawTerm",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mobile",
+      "name": "모바일",
+      "subcategories": [
+        {
+          "id": "mobile-law",
+          "name": "법령",
+          "apis": [
+            {
+              "id": "mobile-law-list",
+              "name": "법령 목록 조회",
+              "type": "list",
+              "target": "lawMobile",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "mobile-law-detail",
+              "name": "법령 본문 조회",
+              "type": "detail",
+              "target": "lawMobile",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "mobile-admrul",
+          "name": "행정규칙",
+          "apis": [
+            {
+              "id": "mobile-admrul-list",
+              "name": "행정규칙 목록 조회",
+              "type": "list",
+              "target": "admrulMobile",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "mobile-admrul-detail",
+              "name": "행정규칙 본문 조회",
+              "type": "detail",
+              "target": "admrulMobile",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "mobile-ordin",
+          "name": "자치법규",
+          "apis": [
+            {
+              "id": "mobile-ordin-list",
+              "name": "자치법규 목록 조회",
+              "type": "list",
+              "target": "ordinMobile",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "mobile-ordin-detail",
+              "name": "자치법규 본문 조회",
+              "type": "detail",
+              "target": "ordinMobile",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "mobile-prec",
+          "name": "판례",
+          "apis": [
+            {
+              "id": "mobile-prec-list",
+              "name": "판례 목록 조회",
+              "type": "list",
+              "target": "precMobile",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "mobile-prec-detail",
+              "name": "판례 본문 조회",
+              "type": "detail",
+              "target": "precMobile",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "mobile-detc",
+          "name": "헌재결정례",
+          "apis": [
+            {
+              "id": "mobile-detc-list",
+              "name": "헌재결정례 목록 조회",
+              "type": "list",
+              "target": "detcMobile",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "mobile-detc-detail",
+              "name": "헌재결정례 본문 조회",
+              "type": "detail",
+              "target": "detcMobile",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "mobile-expc",
+          "name": "법령해석례",
+          "apis": [
+            {
+              "id": "mobile-expc-list",
+              "name": "법령해석례 목록 조회",
+              "type": "list",
+              "target": "expcMobile",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "mobile-expc-detail",
+              "name": "법령해석례 본문 조회",
+              "type": "detail",
+              "target": "expcMobile",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "mobile-flgn",
+          "name": "행정심판례",
+          "apis": [
+            {
+              "id": "mobile-flgn-list",
+              "name": "행정심판례 목록 조회",
+              "type": "list",
+              "target": "flgnMobile",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "mobile-flgn-detail",
+              "name": "행정심판례 본문 조회",
+              "type": "detail",
+              "target": "flgnMobile",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "mobile-trty",
+          "name": "조약",
+          "apis": [
+            {
+              "id": "mobile-trty-list",
+              "name": "조약 목록 조회",
+              "type": "list",
+              "target": "trtyMobile",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "mobile-trty-detail",
+              "name": "조약 본문 조회",
+              "type": "detail",
+              "target": "trtyMobile",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "mobile-attachment",
+          "name": "별표ㆍ서식",
+          "apis": [
+            {
+              "id": "mobile-attachment-law-list",
+              "name": "법령 별표ㆍ서식 목록 조회",
+              "type": "list",
+              "target": "lawAttachMobile",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "mobile-attachment-admrul-list",
+              "name": "행정규칙 별표ㆍ서식 목록 조회",
+              "type": "list",
+              "target": "admrulAttachMobile",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "mobile-attachment-ordin-list",
+              "name": "자치법규 별표ㆍ서식 목록 조회",
+              "type": "list",
+              "target": "ordinAttachMobile",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "mobile-term",
+          "name": "법령용어",
+          "apis": [
+            {
+              "id": "mobile-term-list",
+              "name": "법령 용어 목록 조회",
+              "type": "list",
+              "target": "lawTermMobile",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "custom",
+      "name": "맞춤형",
+      "subcategories": [
+        {
+          "id": "custom-law",
+          "name": "법령",
+          "apis": [
+            {
+              "id": "custom-law-list",
+              "name": "맞춤형 법령 목록 조회",
+              "type": "list",
+              "target": "lawCustom",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "custom-law-article-list",
+              "name": "맞춤형 법령 조문 목록 조회",
+              "type": "list",
+              "target": "lawCustomArticle",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "custom-admrul",
+          "name": "행정규칙",
+          "apis": [
+            {
+              "id": "custom-admrul-list",
+              "name": "맞춤형 행정규칙 목록 조회",
+              "type": "list",
+              "target": "admrulCustom",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "custom-admrul-article-list",
+              "name": "맞춤형 행정규칙 조문 목록 조회",
+              "type": "list",
+              "target": "admrulCustomArticle",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "custom-ordin",
+          "name": "자치법규",
+          "apis": [
+            {
+              "id": "custom-ordin-list",
+              "name": "맞춤형 자치법규 목록 조회",
+              "type": "list",
+              "target": "ordinCustom",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "custom-ordin-article-list",
+              "name": "맞춤형 자치법규 조문 목록 조회",
+              "type": "list",
+              "target": "ordinCustomArticle",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "knowledge",
+      "name": "법령정보 지식베이스",
+      "subcategories": [
+        {
+          "id": "knowledge-term",
+          "name": "용어",
+          "apis": [
+            {
+              "id": "knowledge-term-law",
+              "name": "법령용어 조회",
+              "type": "detail",
+              "target": "kbLawTerm",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            },
+            {
+              "id": "knowledge-term-daily",
+              "name": "일상용어 조회",
+              "type": "detail",
+              "target": "kbDailyTerm",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "knowledge-term-relation",
+          "name": "용어 간 관계",
+          "apis": [
+            {
+              "id": "knowledge-lawterm-to-daily",
+              "name": "법령용어-일상용어 연계 조회",
+              "type": "list",
+              "target": "kbLawToDaily",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "knowledge-daily-to-lawterm",
+              "name": "일상용어-법령용어 연계 조회",
+              "type": "list",
+              "target": "kbDailyToLaw",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "knowledge-article-relation",
+          "name": "조문 간 관계",
+          "apis": [
+            {
+              "id": "knowledge-lawterm-to-article",
+              "name": "법령용어-조문 연계 조회",
+              "type": "list",
+              "target": "kbTermToArticle",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "knowledge-article-to-lawterm",
+              "name": "조문-법령용어 연계 조회",
+              "type": "list",
+              "target": "kbArticleToTerm",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "knowledge-law-relation",
+          "name": "법령 간 관계",
+          "apis": [
+            {
+              "id": "knowledge-related-law",
+              "name": "관련법령 조회",
+              "type": "list",
+              "target": "kbRelatedLaw",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "knowledge-ai",
+          "name": "지능형 법령검색 시스템",
+          "apis": [
+            {
+              "id": "knowledge-ai-search",
+              "name": "지능형 법령검색 시스템 검색 API 조회",
+              "type": "list",
+              "target": "aiSearch",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "knowledge-ai-related",
+              "name": "지능형 법령검색 시스템 연관법령 API 조회",
+              "type": "list",
+              "target": "aiRelated",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ministry",
+      "name": "중앙부처 1차 해석",
+      "subcategories": [
+        {
+          "id": "ministry-moel",
+          "name": "고용노동부",
+          "code": "moel",
+          "apis": [
+            {
+              "id": "ministry-moel-list",
+              "name": "고용노동부 법령해석 목록 조회",
+              "type": "list",
+              "target": "moelInterp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "ministry-moel-detail",
+              "name": "고용노동부 법령해석 본문 조회",
+              "type": "detail",
+              "target": "moelInterp",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "ministry-molit",
+          "name": "국토교통부",
+          "code": "molit",
+          "apis": [
+            {
+              "id": "ministry-molit-list",
+              "name": "국토교통부 법령해석 목록 조회",
+              "type": "list",
+              "target": "molitInterp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "ministry-molit-detail",
+              "name": "국토교통부 법령해석 본문 조회",
+              "type": "detail",
+              "target": "molitInterp",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "ministry-mosf",
+          "name": "기획재정부",
+          "code": "mosf",
+          "apis": [
+            {
+              "id": "ministry-mosf-list",
+              "name": "기획재정부 법령해석 목록 조회",
+              "type": "list",
+              "target": "mosfInterp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "ministry-mof",
+          "name": "해양수산부",
+          "code": "mof",
+          "apis": [
+            {
+              "id": "ministry-mof-list",
+              "name": "해양수산부 법령해석 목록 조회",
+              "type": "list",
+              "target": "mofInterp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "ministry-mof-detail",
+              "name": "해양수산부 법령해석 본문 조회",
+              "type": "detail",
+              "target": "mofInterp",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "ministry-mois",
+          "name": "행정안전부",
+          "code": "mois",
+          "apis": [
+            {
+              "id": "ministry-mois-list",
+              "name": "행정안전부 법령해석 목록 조회",
+              "type": "list",
+              "target": "moisInterp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "ministry-mois-detail",
+              "name": "행정안전부 법령해석 본문 조회",
+              "type": "detail",
+              "target": "moisInterp",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "ministry-me",
+          "name": "기후에너지환경부",
+          "code": "me",
+          "apis": [
+            {
+              "id": "ministry-me-list",
+              "name": "기후에너지환경부 법령해석 목록 조회",
+              "type": "list",
+              "target": "meInterp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "ministry-me-detail",
+              "name": "기후에너지환경부 법령해석 본문 조회",
+              "type": "detail",
+              "target": "meInterp",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "ministry-customs",
+          "name": "관세청",
+          "code": "customs",
+          "apis": [
+            {
+              "id": "ministry-customs-list",
+              "name": "관세청 법령해석 목록 조회",
+              "type": "list",
+              "target": "customsInterp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "ministry-customs-detail",
+              "name": "관세청 법령해석 본문 조회",
+              "type": "detail",
+              "target": "customsInterp",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "ministry-nts",
+          "name": "국세청",
+          "code": "nts",
+          "apis": [
+            {
+              "id": "ministry-nts-list",
+              "name": "국세청 법령해석 목록 조회",
+              "type": "list",
+              "target": "ntsInterp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "ministry-moe",
+          "name": "교육부",
+          "code": "moe",
+          "apis": [
+            {
+              "id": "ministry-moe-list",
+              "name": "교육부 법령해석 목록",
+              "type": "list",
+              "target": "moeInterp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "ministry-moe-detail",
+              "name": "교육부 법령해석 본문",
+              "type": "detail",
+              "target": "moeInterp",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "ministry-msit",
+          "name": "과학기술정보통신부",
+          "code": "msit",
+          "apis": [
+            {
+              "id": "ministry-msit-list",
+              "name": "과학기술정보통신부 법령해석 목록",
+              "type": "list",
+              "target": "msitInterp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "ministry-msit-detail",
+              "name": "과학기술정보통신부 법령해석 본문",
+              "type": "detail",
+              "target": "msitInterp",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "ministry-mpva",
+          "name": "국가보훈부",
+          "code": "mpva",
+          "apis": [
+            {
+              "id": "ministry-mpva-list",
+              "name": "국가보훈부 법령해석 목록",
+              "type": "list",
+              "target": "mpvaInterp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "ministry-mpva-detail",
+              "name": "국가보훈부 법령해석 본문",
+              "type": "detail",
+              "target": "mpvaInterp",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "ministry-mnd",
+          "name": "국방부",
+          "code": "mnd",
+          "apis": [
+            {
+              "id": "ministry-mnd-list",
+              "name": "국방부 법령해석 목록",
+              "type": "list",
+              "target": "mndInterp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "ministry-mnd-detail",
+              "name": "국방부 법령해석 본문",
+              "type": "detail",
+              "target": "mndInterp",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "ministry-mafra",
+          "name": "농림축산식품부",
+          "code": "mafra",
+          "apis": [
+            {
+              "id": "ministry-mafra-list",
+              "name": "농림축산식품부 법령해석 목록",
+              "type": "list",
+              "target": "mafraInterp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "ministry-mafra-detail",
+              "name": "농림축산식품부 법령해석 본문",
+              "type": "detail",
+              "target": "mafraInterp",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "ministry-mcst",
+          "name": "문화체육관광부",
+          "code": "mcst",
+          "apis": [
+            {
+              "id": "ministry-mcst-list",
+              "name": "문화체육관광부 법령해석 목록",
+              "type": "list",
+              "target": "mcstInterp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "ministry-mcst-detail",
+              "name": "문화체육관광부 법령해석 본문",
+              "type": "detail",
+              "target": "mcstInterp",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "ministry-moj",
+          "name": "법무부",
+          "code": "moj",
+          "apis": [
+            {
+              "id": "ministry-moj-list",
+              "name": "법무부 법령해석 목록",
+              "type": "list",
+              "target": "mojInterp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "ministry-moj-detail",
+              "name": "법무부 법령해석 본문",
+              "type": "detail",
+              "target": "mojInterp",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "ministry-mohw",
+          "name": "보건복지부",
+          "code": "mohw",
+          "apis": [
+            {
+              "id": "ministry-mohw-list",
+              "name": "보건복지부 법령해석 목록",
+              "type": "list",
+              "target": "mohwInterp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "ministry-mohw-detail",
+              "name": "보건복지부 법령해석 본문",
+              "type": "detail",
+              "target": "mohwInterp",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "ministry-motie",
+          "name": "산업통상부",
+          "code": "motie",
+          "apis": [
+            {
+              "id": "ministry-motie-list",
+              "name": "산업통상부 법령해석 목록",
+              "type": "list",
+              "target": "motieInterp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "ministry-motie-detail",
+              "name": "산업통상부 법령해석 본문",
+              "type": "detail",
+              "target": "motieInterp",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "ministry-mogef",
+          "name": "성평등가족부",
+          "code": "mogef",
+          "apis": [
+            {
+              "id": "ministry-mogef-list",
+              "name": "성평등가족부 법령해석 목록",
+              "type": "list",
+              "target": "mogefInterp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "ministry-mogef-detail",
+              "name": "성평등가족부 법령해석 본문",
+              "type": "detail",
+              "target": "mogefInterp",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "ministry-mofa",
+          "name": "외교부",
+          "code": "mofa",
+          "apis": [
+            {
+              "id": "ministry-mofa-list",
+              "name": "외교부 법령해석 목록",
+              "type": "list",
+              "target": "mofaInterp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "ministry-mofa-detail",
+              "name": "외교부 법령해석 본문",
+              "type": "detail",
+              "target": "mofaInterp",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "ministry-mss",
+          "name": "중소벤처기업부",
+          "code": "mss",
+          "apis": [
+            {
+              "id": "ministry-mss-list",
+              "name": "중소벤처기업부 법령해석 목록",
+              "type": "list",
+              "target": "mssInterp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "ministry-mss-detail",
+              "name": "중소벤처기업부 법령해석 본문",
+              "type": "detail",
+              "target": "mssInterp",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "ministry-unikorea",
+          "name": "통일부",
+          "code": "unikorea",
+          "apis": [
+            {
+              "id": "ministry-unikorea-list",
+              "name": "통일부 법령해석 목록",
+              "type": "list",
+              "target": "unikoreaInterp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "ministry-unikorea-detail",
+              "name": "통일부 법령해석 본문",
+              "type": "detail",
+              "target": "unikoreaInterp",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "ministry-moleg",
+          "name": "법제처",
+          "code": "moleg",
+          "apis": [
+            {
+              "id": "ministry-moleg-list",
+              "name": "법제처 법령해석 목록",
+              "type": "list",
+              "target": "molegInterp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "ministry-moleg-detail",
+              "name": "법제처 법령해석 본문",
+              "type": "detail",
+              "target": "molegInterp",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "ministry-mfds",
+          "name": "식품의약품안전처",
+          "code": "mfds",
+          "apis": [
+            {
+              "id": "ministry-mfds-list",
+              "name": "식품의약품안전처 법령해석 목록",
+              "type": "list",
+              "target": "mfdsInterp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "ministry-mfds-detail",
+              "name": "식품의약품안전처 법령해석 본문",
+              "type": "detail",
+              "target": "mfdsInterp",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "ministry-mpm",
+          "name": "인사혁신처",
+          "code": "mpm",
+          "apis": [
+            {
+              "id": "ministry-mpm-list",
+              "name": "인사혁신처 법령해석 목록",
+              "type": "list",
+              "target": "mpmInterp",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "ministry-mpm-detail",
+              "name": "인사혁신처 법령해석 본문",
+              "type": "detail",
+              "target": "mpmInterp",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "special-appeal",
+      "name": "특별행정심판",
+      "subcategories": [
+        {
+          "id": "special-appeal-tt",
+          "name": "조세심판원",
+          "apis": [
+            {
+              "id": "special-appeal-tt-list",
+              "name": "조세심판원 특별행정심판례 목록 조회",
+              "type": "list",
+              "target": "ttAppeal",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "special-appeal-tt-detail",
+              "name": "조세심판원 특별행정심판례 본문 조회",
+              "type": "detail",
+              "target": "ttAppeal",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "special-appeal-kmst",
+          "name": "해양안전심판원",
+          "apis": [
+            {
+              "id": "special-appeal-kmst-list",
+              "name": "해양안전심판원 특별행정심판례 목록 조회",
+              "type": "list",
+              "target": "kmstAppeal",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "special-appeal-kmst-detail",
+              "name": "해양안전심판원 특별행정심판례 본문 조회",
+              "type": "detail",
+              "target": "kmstAppeal",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "special-appeal-acrc",
+          "name": "국민권익위원회",
+          "apis": [
+            {
+              "id": "special-appeal-acrc-list",
+              "name": "국민권익위원회 특별행정심판례 목록 조회",
+              "type": "list",
+              "target": "acrcAppeal",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "special-appeal-acrc-detail",
+              "name": "국민권익위원회 특별행정심판례 본문 조회",
+              "type": "detail",
+              "target": "acrcAppeal",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        },
+        {
+          "id": "special-appeal-mpm",
+          "name": "인사혁신처 소청심사위원회",
+          "apis": [
+            {
+              "id": "special-appeal-mpm-list",
+              "name": "인사혁신처 소청심사위원회 특별행정심판재결례 목록 조회",
+              "type": "list",
+              "target": "mpmAppeal",
+              "endpoint": "/lawSearch.do",
+              "implemented": false
+            },
+            {
+              "id": "special-appeal-mpm-detail",
+              "name": "인사혁신처 소청심사위원회 특별행정심판재결례 본문 조회",
+              "type": "detail",
+              "target": "mpmAppeal",
+              "endpoint": "/lawService.do",
+              "implemented": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "implementationSummary": {
+    "implemented": 14,
+    "notImplemented": 177,
+    "implementedApis": [
+      "law-current-enforcement-list",
+      "law-current-enforcement-detail",
+      "admrul-list",
+      "admrul-detail",
+      "ordin-list",
+      "ordin-detail",
+      "prec-list",
+      "prec-detail",
+      "detc-list",
+      "expc-list",
+      "flgn-list",
+      "trty-list"
+    ]
+  }
+}
+

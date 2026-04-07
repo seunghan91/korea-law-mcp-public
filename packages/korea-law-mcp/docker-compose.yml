@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  korea-law-mcp:
+    build: .
+    container_name: korea-law-mcp
+    ports:
+      - "3001:3001"
+    environment:
+      - MCP_PORT=3001
+      - MCP_HOST=0.0.0.0
+      - DATABASE_PATH=/app/data/korea-law.db
+      - KOREA_LAW_API_KEY=${KOREA_LAW_API_KEY}
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s

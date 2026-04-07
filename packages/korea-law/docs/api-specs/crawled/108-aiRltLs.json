@@ -1,0 +1,146 @@
+{
+  "index": 108,
+  "name": "법령정보지식베이스 지능형 법령검색 시스템 연관법령 API",
+  "target": "aiRltLs",
+  "requestUrl": "https://www.law.go.kr/DRF/lawSearch.do?target=aiRltLs",
+  "requestParams": [
+    {
+      "name": "OC",
+      "type": "string(필수)",
+      "description": "사용자 이메일의 ID (g4c@korea.kr일경우 OC값=g4c)"
+    },
+    {
+      "name": "target",
+      "type": "string(필수)",
+      "description": "서비스 대상 (지능형 법령검색 시스템 연관법령 API : aiRltLs)"
+    },
+    {
+      "name": "type",
+      "type": "char(필수)",
+      "description": "출력 형태 : XML/JSON"
+    },
+    {
+      "name": "search",
+      "type": "int",
+      "description": "검색범위 법령분류(0:법령조문, 1:행정규칙조문)"
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "description": "법령명에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"뺑소니\")"
+    }
+  ],
+  "responseFields": [
+    {
+      "name": "target",
+      "type": "string",
+      "description": "검색서비스 대상"
+    },
+    {
+      "name": "키워드",
+      "type": "string",
+      "description": "검색 단어"
+    },
+    {
+      "name": "검색결과개수",
+      "type": "int",
+      "description": "검색 건수"
+    },
+    {
+      "name": "법령조문ID",
+      "type": "int",
+      "description": "법령조문 ID"
+    },
+    {
+      "name": "법령ID",
+      "type": "string",
+      "description": "법령ID"
+    },
+    {
+      "name": "법령명",
+      "type": "string",
+      "description": "법령명"
+    },
+    {
+      "name": "시행일자",
+      "type": "string",
+      "description": "법령 시행일자"
+    },
+    {
+      "name": "공포일자",
+      "type": "string",
+      "description": "법령 공포일자"
+    },
+    {
+      "name": "공포번호",
+      "type": "string",
+      "description": "법령 공포번호"
+    },
+    {
+      "name": "조문번호",
+      "type": "string",
+      "description": "법령 조문번호"
+    },
+    {
+      "name": "조문가지번호",
+      "type": "string",
+      "description": "법령 조문가지번호"
+    },
+    {
+      "name": "조문제목",
+      "type": "string",
+      "description": "법령 조문제목"
+    },
+    {
+      "name": "행정규칙조문ID",
+      "type": "int",
+      "description": "행정규칙조문 ID"
+    },
+    {
+      "name": "행정규칙ID",
+      "type": "string",
+      "description": "행정규칙ID"
+    },
+    {
+      "name": "행정규칙명",
+      "type": "string",
+      "description": "행정규칙명"
+    },
+    {
+      "name": "발령일자",
+      "type": "string",
+      "description": "발령일자"
+    },
+    {
+      "name": "발령번호",
+      "type": "string",
+      "description": "발령번호"
+    },
+    {
+      "name": "조문번호",
+      "type": "string",
+      "description": "행정규칙 조문번호"
+    },
+    {
+      "name": "조문가지번호",
+      "type": "string",
+      "description": "행정규칙 조문가지번호"
+    },
+    {
+      "name": "조문제목",
+      "type": "string",
+      "description": "행정규칙 조문제목"
+    }
+  ],
+  "sampleUrls": [
+    {
+      "description": "1. 법령정보지식베이스 지능형 법령검색 시스템 연관법령 API XML 조회",
+      "url": "https://www.law.go.kr/DRF/lawSearch.do?OC=test&target=aiRltLs&type=XML&search=0&query=%EB%BA%91%EC%86%8C%EB%8B%88"
+    },
+    {
+      "description": "2. 법령정보지식베이스 지능형 법령검색 시스템 연관법령 API JSON 조회",
+      "url": "https://www.law.go.kr/DRF/lawSearch.do?OC=test&target=aiRltLs&type=JSON&search=0&query=%EB%BA%91%EC%86%8C%EB%8B%88"
+    }
+  ],
+  "crawledAt": "2025-12-10T09:23:07.003Z"
+}

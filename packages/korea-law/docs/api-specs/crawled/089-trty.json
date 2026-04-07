@@ -1,0 +1,41 @@
+{
+  "index": 89,
+  "name": "모바일 조약 본문 조회 가이드API",
+  "target": "trty",
+  "requestUrl": "http://www.law.go.kr/DRF/lawService.do?target=trty&mobileYn=Y",
+  "requestParams": [
+    {
+      "name": "OC",
+      "type": "string(필수)",
+      "description": "사용자 이메일의 ID(g4c@korea.kr일경우 OC값=g4c)"
+    },
+    {
+      "name": "target",
+      "type": "string : trty(필수)",
+      "description": "서비스 대상"
+    },
+    {
+      "name": "ID",
+      "type": "char",
+      "description": "조약 ID"
+    },
+    {
+      "name": "type",
+      "type": "char",
+      "description": "출력 형태 : HTML"
+    },
+    {
+      "name": "mobileYn",
+      "type": "char : Y (필수)",
+      "description": "모바일여부"
+    }
+  ],
+  "responseFields": [],
+  "sampleUrls": [
+    {
+      "description": "1. 조약 HTML 조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=trty&ID=983&type=HTML&mobileYn=Y"
+    }
+  ],
+  "crawledAt": "2025-12-10T09:22:57.107Z"
+}

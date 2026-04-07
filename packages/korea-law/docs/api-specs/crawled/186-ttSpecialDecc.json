@@ -1,0 +1,150 @@
+{
+  "index": 186,
+  "name": "조세심판원 특별행정심판재결례 본문 조회 API",
+  "target": "ttSpecialDecc",
+  "requestUrl": "http://www.law.go.kr/DRF/lawService.do?target=ttSpecialDecc",
+  "requestParams": [
+    {
+      "name": "OC",
+      "type": "string(필수)",
+      "description": "사용자 이메일의 ID(g4c@korea.kr일경우 OC값=g4c)"
+    },
+    {
+      "name": "target",
+      "type": "string : ttSpecialDecc(필수)",
+      "description": "서비스 대상"
+    },
+    {
+      "name": "type",
+      "type": "char(필수)",
+      "description": "출력 형태 : HTML/XML/JSON"
+    },
+    {
+      "name": "ID",
+      "type": "char(필수)",
+      "description": "특별행정심판재결례일련번호"
+    },
+    {
+      "name": "LM",
+      "type": "string",
+      "description": "특별행정심판재결례명"
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "응답항목 옵션(사건명, 사건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+  ],
+  "responseFields": [
+    {
+      "name": "특별행정심판재결례일련번호",
+      "type": "int",
+      "description": "특별행정심판재결례일련번호"
+    },
+    {
+      "name": "사건명",
+      "type": "string",
+      "description": "사건명"
+    },
+    {
+      "name": "사건번호",
+      "type": "string",
+      "description": "사건번호"
+    },
+    {
+      "name": "청구번호",
+      "type": "string",
+      "description": "청구번호"
+    },
+    {
+      "name": "처분일자",
+      "type": "int",
+      "description": "처분일자"
+    },
+    {
+      "name": "의결일자",
+      "type": "int",
+      "description": "의결일자"
+    },
+    {
+      "name": "처분청",
+      "type": "string",
+      "description": "처분청"
+    },
+    {
+      "name": "재결청",
+      "type": "string",
+      "description": "재결청"
+    },
+    {
+      "name": "재결례유형명",
+      "type": "string",
+      "description": "재결례유형명"
+    },
+    {
+      "name": "재결례유형코드",
+      "type": "int",
+      "description": "재결례유형코드"
+    },
+    {
+      "name": "세목",
+      "type": "string",
+      "description": "세목"
+    },
+    {
+      "name": "재결요지",
+      "type": "string",
+      "description": "재결요지"
+    },
+    {
+      "name": "따른결정",
+      "type": "string",
+      "description": "따른결정"
+    },
+    {
+      "name": "참조결정",
+      "type": "string",
+      "description": "참조결정"
+    },
+    {
+      "name": "주문",
+      "type": "string",
+      "description": "주문"
+    },
+    {
+      "name": "청구취지",
+      "type": "string",
+      "description": "청구취지"
+    },
+    {
+      "name": "이유",
+      "type": "string",
+      "description": "이유"
+    },
+    {
+      "name": "관련법령",
+      "type": "string",
+      "description": "관련법령"
+    },
+    {
+      "name": "데이터기준일시",
+      "type": "string",
+      "description": "데이터기준일시"
+    }
+  ],
+  "sampleUrls": [
+    {
+      "description": "1. 특별행정심판재결례일련번호가 1018160인 특별행정심판재결례 XML 조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=ttSpecialDecc&ID=1018160&type=XML"
+    },
+    {
+      "description": "2. 특별행정심판재결례일련번호가 1018160인 특별행정심판재결례 HTML 조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=ttSpecialDecc&ID=1018160&type=HTML"
+    },
+    {
+      "description": "3. 특별행정심판재결례일련번호가 1018160인 특별행정심판재결례 JSON 조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=ttSpecialDecc&ID=1018160&type=JSON"
+    }
+  ],
+  "crawledAt": "2025-12-10T09:23:47.542Z"
+}

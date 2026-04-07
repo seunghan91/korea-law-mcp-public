@@ -1,0 +1,49 @@
+{
+  "name": "korea-law-mcp",
+  "version": "1.0.2",
+  "description": "Korea Law MCP Server - 한국법률 MCP 서버 (korea-law 래퍼)",
+  "main": "dist/index.js",
+  "scripts": {
+    "preinstall": "rm -rf node_modules/.pnpm/korea-law* 2>/dev/null || true",
+    "dev": "ts-node src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "sync": "ts-node src/sync.ts",
+    "sync:all": "ts-node src/sync.ts --all",
+    "crawl": "ts-node src/crawlers/hyperbrowser-crawler.ts",
+    "crawl:all": "ts-node src/crawlers/hyperbrowser-crawler.ts all",
+    "crawl:all:seq": "ts-node src/crawlers/hyperbrowser-crawler.ts all --seq",
+    "crawl:supreme": "ts-node src/crawlers/hyperbrowser-crawler.ts supreme",
+    "crawl:constitutional": "ts-node src/crawlers/hyperbrowser-crawler.ts constitutional",
+    "crawl:easylaw": "ts-node src/crawlers/hyperbrowser-crawler.ts easylaw",
+    "crawl:batch": "ts-node src/crawlers/hyperbrowser-crawler.ts batch",
+    "crawl:help": "ts-node src/crawlers/hyperbrowser-crawler.ts --help",
+    "test": "vitest",
+    "lint": "eslint src --ext .ts"
+  },
+  "dependencies": {
+    "@hyperbrowser/sdk": "^0.81.1",
+    "axios": "^1.6.0",
+    "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "korea-law": "workspace:*",
+    "xml2js": "^0.6.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.0.0",
+    "@types/xml2js": "^0.4.14",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0"
+  },
+  "dependenciesMeta": {
+    "korea-law": {
+      "injected": true
+    }
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

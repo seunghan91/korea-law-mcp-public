@@ -1,0 +1,278 @@
+{
+  "description": "자치법규(조례) ES 인덱스 매핑. weknora_legal_v3의 분석기 구조를 그대로 복사하여 일관성을 확보하고, 자치법규 전용 필드(municipality_*, doc_type, article_no, appendix_no)와 자치법규 전용 user_dictionary 용어를 추가한다. 설계 문서: docs/todo/09-ordinance-elasticsearch-indexing.md",
+  "index_name": "ordinances_v1",
+  "settings": {
+    "index": {
+      "number_of_shards": 1,
+      "number_of_replicas": 1,
+      "analysis": {
+        "tokenizer": {
+          "nori_ordinance": {
+            "type": "nori_tokenizer",
+            "decompound_mode": "mixed",
+            "discard_punctuation": "true",
+            "user_dictionary_rules": [
+              "자치법규",
+              "조례",
+              "시행규칙",
+              "지방공무원",
+              "지방의회",
+              "지방자치단체",
+              "지방자치법",
+              "복무선서",
+              "복무규정",
+              "복무조례",
+              "당직근무",
+              "특별휴가",
+              "연가보상비",
+              "후생복지",
+              "행정사무",
+              "의정활동",
+              "주민자치",
+              "주민투표",
+              "주민소환",
+              "주민참여예산",
+              "구청장",
+              "시장",
+              "군수",
+              "의장",
+              "부의장",
+              "위원회",
+              "조합원",
+              "공무원노동조합",
+              "근무기강",
+              "책임완수",
+              "친절공정",
+              "비밀엄수",
+              "청렴의무",
+              "품위유지",
+              "영리금지",
+              "정치운동금지",
+              "집단행위금지",
+              "시간외근무",
+              "휴가계획",
+              "사생활보장",
+              "별표서식",
+              "인사규칙",
+              "보수규정",
+              "수당규정",
+              "예산집행",
+              "재정운영",
+              "감사위원회",
+              "청문회",
+              "행정절차",
+              "정보공개",
+              "퇴직급여",
+              "근로기준법",
+              "손해배상",
+              "불법행위",
+              "채무불이행",
+              "공소시효",
+              "소멸시효",
+              "민사소송",
+              "형사소송",
+              "행정소송",
+              "가처분",
+              "가압류",
+              "부당해고",
+              "부당노동행위",
+              "개인정보보호",
+              "저작권침해",
+              "특허침해",
+              "상표권침해",
+              "하도급거래",
+              "공정거래"
+            ]
+          }
+        },
+        "filter": {
+          "nori_pos_filter": {
+            "type": "nori_part_of_speech",
+            "stoptags": [
+              "EC", "EP", "ETM", "ETN",
+              "IC",
+              "JKB", "JKC", "JKG", "JKO", "JKQ", "JKS", "JKV", "JX", "JC",
+              "MAG", "MAJ", "MM",
+              "NNB", "NP",
+              "SP",
+              "VCP", "VCN",
+              "XPN", "XSA", "XSV"
+            ]
+          },
+          "ordinance_synonyms_index": {
+            "type": "synonym",
+            "lenient": true,
+            "synonyms": [
+              "조례,자치법규",
+              "복무,근무",
+              "공무원,지방공무원",
+              "휴가,연가",
+              "의회,지방의회",
+              "구청,자치구,구",
+              "시청,시,자치시",
+              "군청,군,자치군",
+              "별표,별지,양식",
+              "시행,실시",
+              "제정,신설",
+              "개정,수정",
+              "폐지,폐기"
+            ]
+          },
+          "ordinance_synonyms_search": {
+            "type": "synonym_graph",
+            "lenient": true,
+            "synonyms": [
+              "조례,자치법규",
+              "복무,근무",
+              "공무원,지방공무원",
+              "휴가,연가",
+              "의회,지방의회",
+              "구청,자치구,구",
+              "시청,시,자치시",
+              "군청,군,자치군",
+              "별표,별지,양식"
+            ]
+          }
+        },
+        "analyzer": {
+          "korean_ordinance": {
+            "type": "custom",
+            "tokenizer": "nori_ordinance",
+            "filter": [
+              "nori_pos_filter",
+              "nori_readingform",
+              "lowercase",
+              "ordinance_synonyms_index"
+            ]
+          },
+          "korean_ordinance_search": {
+            "type": "custom",
+            "tokenizer": "nori_ordinance",
+            "filter": [
+              "nori_pos_filter",
+              "nori_readingform",
+              "lowercase",
+              "ordinance_synonyms_search"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "ordinance_mst": {
+        "type": "keyword"
+      },
+      "ordinance_title": {
+        "type": "text",
+        "analyzer": "korean_ordinance",
+        "search_analyzer": "korean_ordinance_search",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 512
+          }
+        }
+      },
+      "municipality_code": {
+        "type": "keyword"
+      },
+      "municipality_name": {
+        "type": "text",
+        "analyzer": "korean_ordinance",
+        "search_analyzer": "korean_ordinance_search",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "municipality_level": {
+        "type": "byte"
+      },
+      "parent_municipality_code": {
+        "type": "keyword"
+      },
+      "ordinance_type": {
+        "type": "keyword"
+      },
+      "promulgation_date": {
+        "type": "date",
+        "format": "yyyy-MM-dd||yyyyMMdd||epoch_millis"
+      },
+      "enforcement_date": {
+        "type": "date",
+        "format": "yyyy-MM-dd||yyyyMMdd||epoch_millis"
+      },
+      "status": {
+        "type": "keyword"
+      },
+      "department": {
+        "type": "text",
+        "analyzer": "korean_ordinance",
+        "search_analyzer": "korean_ordinance_search"
+      },
+      "doc_type": {
+        "type": "keyword"
+      },
+      "article_no": {
+        "type": "keyword"
+      },
+      "article_title": {
+        "type": "text",
+        "analyzer": "korean_ordinance",
+        "search_analyzer": "korean_ordinance_search"
+      },
+      "appendix_no": {
+        "type": "keyword"
+      },
+      "appendix_title": {
+        "type": "text",
+        "analyzer": "korean_ordinance",
+        "search_analyzer": "korean_ordinance_search"
+      },
+      "position": {
+        "type": "integer"
+      },
+      "content": {
+        "type": "text",
+        "analyzer": "korean_ordinance",
+        "search_analyzer": "korean_ordinance_search"
+      },
+      "content_format": {
+        "type": "keyword"
+      },
+      "embedding": {
+        "type": "dense_vector",
+        "dims": 1024,
+        "index": true,
+        "similarity": "cosine",
+        "index_options": {
+          "type": "bbq_hnsw",
+          "m": 16,
+          "ef_construction": 100,
+          "rescore_vector": {
+            "oversample": 3.0
+          }
+        }
+      },
+      "source_url": {
+        "type": "keyword"
+      },
+      "raw_html_hash": {
+        "type": "keyword"
+      },
+      "created_at": {
+        "type": "date"
+      },
+      "updated_at": {
+        "type": "date"
+      },
+      "last_synced_at": {
+        "type": "date"
+      }
+    }
+  }
+}

@@ -1,0 +1,208 @@
+{
+  "$schema": "../api-spec-schema.json",
+  "apiId": "prec",
+  "name": "판례",
+  "description": "대법원 판례 조회",
+  "target": "prec",
+  "baseUrl": "http://www.law.go.kr/DRF",
+  
+  "list": {
+    "endpoint": "/lawSearch.do",
+    "method": "GET",
+    "description": "판례 목록 조회",
+    "sampleUrl": "http://www.law.go.kr/DRF/lawSearch.do?OC=test&target=prec&type=XML",
+    
+    "requestParams": {
+      "required": [
+        {
+          "name": "OC",
+          "type": "string",
+          "description": "사용자 이메일의 ID"
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "value": "prec",
+          "description": "서비스 대상"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "enum": ["HTML", "XML", "JSON"],
+          "default": "XML",
+          "description": "출력 형태"
+        }
+      ],
+      "optional": [
+        {
+          "name": "query",
+          "type": "string",
+          "description": "검색어 (사건번호, 사건명, 키워드 등)"
+        },
+        {
+          "name": "curt",
+          "type": "string",
+          "description": "법원구분 (400201: 대법원, 400202: 고등법원, 400203: 하급심)"
+        },
+        {
+          "name": "ptype",
+          "type": "string",
+          "description": "판결유형 (400101: 판결, 400102: 결정, 400103: 명령)"
+        },
+        {
+          "name": "ctype",
+          "type": "string",
+          "description": "사건종류"
+        },
+        {
+          "name": "date",
+          "type": "string",
+          "format": "YYYYMMDD",
+          "description": "선고일자 검색"
+        },
+        {
+          "name": "dateYd",
+          "type": "string",
+          "format": "YYYYMMDD~YYYYMMDD",
+          "description": "선고일자 범위 검색"
+        },
+        {
+          "name": "display",
+          "type": "int",
+          "default": 20,
+          "max": 100,
+          "description": "검색된 결과 개수"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "default": 1,
+          "description": "검색 결과 페이지"
+        },
+        {
+          "name": "sort",
+          "type": "string",
+          "enum": ["dasc", "ddes", "pasc", "pdes"],
+          "default": "ddes",
+          "description": "정렬 (dasc/ddes: 선고일자, pasc/pdes: 판례일련번호)"
+        }
+      ]
+    },
+    
+    "responseFields": {
+      "wrapper": "PrecSearch",
+      "itemTag": "prec",
+      "meta": [
+        { "name": "totalCnt", "type": "int", "description": "검색건수" },
+        { "name": "page", "type": "int", "description": "현재 페이지" }
+      ],
+      "item": [
+        { "name": "판례일련번호", "type": "int", "description": "판례일련번호" },
+        { "name": "사건명", "type": "string", "description": "사건명" },
+        { "name": "사건번호", "type": "string", "description": "사건번호 (예: 2023다12345)" },
+        { "name": "선고일자", "type": "string", "format": "YYYY.MM.DD", "description": "선고일자" },
+        { "name": "선고", "type": "string", "description": "선고 구분" },
+        { "name": "법원명", "type": "string", "description": "법원명" },
+        { "name": "법원종류코드", "type": "string", "description": "법원종류코드" },
+        { "name": "사건종류명", "type": "string", "description": "사건종류명 (민사/형사/행정 등)" },
+        { "name": "사건종류코드", "type": "string", "description": "사건종류코드" },
+        { "name": "판결유형", "type": "string", "description": "판결유형" },
+        { "name": "판시사항", "type": "string", "description": "판시사항" },
+        { "name": "판결요지", "type": "string", "description": "판결요지" },
+        { "name": "참조조문", "type": "string", "description": "참조조문" },
+        { "name": "참조판례", "type": "string", "description": "참조판례" },
+        { "name": "판례상세링크", "type": "string", "description": "판례상세링크" }
+      ]
+    }
+  },
+  
+  "detail": {
+    "endpoint": "/lawService.do",
+    "method": "GET",
+    "description": "판례 본문 조회",
+    "sampleUrl": "http://www.law.go.kr/DRF/lawService.do?OC=test&target=prec&ID=123456&type=XML",
+    
+    "requestParams": {
+      "required": [
+        {
+          "name": "OC",
+          "type": "string",
+          "description": "사용자 이메일의 ID"
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "value": "prec",
+          "description": "서비스 대상"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "enum": ["HTML", "XML", "JSON"],
+          "default": "XML",
+          "description": "출력 형태"
+        },
+        {
+          "name": "ID",
+          "type": "int",
+          "description": "판례일련번호"
+        }
+      ]
+    },
+    
+    "responseFields": {
+      "wrapper": "판례",
+      "fields": [
+        { "name": "판례정보일련번호", "type": "int", "description": "판례정보일련번호" },
+        { "name": "사건명", "type": "string", "description": "사건명" },
+        { "name": "사건번호", "type": "string", "description": "사건번호" },
+        { "name": "선고일자", "type": "string", "description": "선고일자" },
+        { "name": "선고", "type": "string", "description": "선고 구분" },
+        { "name": "법원명", "type": "string", "description": "법원명" },
+        { "name": "법원종류코드", "type": "string", "description": "법원종류코드" },
+        { "name": "사건종류명", "type": "string", "description": "사건종류명" },
+        { "name": "사건종류코드", "type": "string", "description": "사건종류코드" },
+        { "name": "판결유형", "type": "string", "description": "판결유형" },
+        { "name": "판시사항", "type": "string", "description": "판시사항 (핵심 요약)" },
+        { "name": "판결요지", "type": "string", "description": "판결요지 (요약)" },
+        { "name": "참조조문", "type": "string", "description": "참조조문 목록" },
+        { "name": "참조판례", "type": "string", "description": "참조판례 목록" },
+        { "name": "판례내용", "type": "string", "description": "판례 전문 (Full Text)" }
+      ]
+    }
+  },
+  
+  "codes": {
+    "법원종류": {
+      "400201": "대법원",
+      "400202": "고등법원",
+      "400203": "하급심"
+    },
+    "판결유형": {
+      "400101": "판결",
+      "400102": "결정",
+      "400103": "명령"
+    },
+    "사건종류": {
+      "민사": "민사사건",
+      "형사": "형사사건",
+      "행정": "행정사건",
+      "가사": "가사사건",
+      "특허": "특허사건"
+    }
+  },
+  
+  "_comparison": {
+    "note": "법령 API와의 차이점",
+    "differences": [
+      "응답 wrapper: PrecSearch vs LawSearch",
+      "item 태그: prec vs law",
+      "필드명: 판례일련번호, 사건번호, 선고일자 등 완전히 다름",
+      "계층구조: 법령은 조문>항>호>목 구조, 판례는 flat",
+      "날짜형식: 법령은 YYYYMMDD, 판례는 YYYY.MM.DD"
+    ]
+  }
+}
+
+
+

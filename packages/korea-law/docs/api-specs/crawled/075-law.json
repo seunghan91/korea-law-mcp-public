@@ -1,0 +1,100 @@
+{
+  "index": 75,
+  "name": "모바일 법령 본문 조회 가이드API",
+  "target": "law",
+  "requestUrl": "http://www.law.go.kr/DRF/lawService.do?target=law&mobileYn=Y",
+  "requestParams": [
+    {
+      "name": "OC",
+      "type": "string(필수)",
+      "description": "사용자 이메일의 ID(g4c@korea.kr일경우 OC값=g4c)"
+    },
+    {
+      "name": "target",
+      "type": "string : law(필수)",
+      "description": "서비스 대상"
+    },
+    {
+      "name": "ID",
+      "type": "char",
+      "description": "법령 ID (ID 또는 MST 중 하나는 반드시 입력)"
+    },
+    {
+      "name": "MST",
+      "type": "char",
+      "description": "법령 마스터 번호 법령테이블의 lsi_seq 값을 의미함"
+    },
+    {
+      "name": "LM",
+      "type": "string",
+      "description": "법령의 법령명(법령명 입력시 해당 법령 링크)"
+    },
+    {
+      "name": "LD",
+      "type": "int",
+      "description": "법령의 공포일자"
+    },
+    {
+      "name": "LN",
+      "type": "int",
+      "description": "법령의 공포번호"
+    },
+    {
+      "name": "JO",
+      "type": "int:6",
+      "description": "조번호 생략(기본값) : 모든 조를 표시함 6자리숫자 : 조번호(4자리)+조가지번호(2자리) (000200 : 2조, 001002 : 10조의 2)"
+    },
+    {
+      "name": "PD",
+      "type": "char",
+      "description": "부칙표시 ON일 경우 부칙 목록만 출력 생략할 경우 법령 + 부칙 표시"
+    },
+    {
+      "name": "PN",
+      "type": "int",
+      "description": "부칙번호 해당 부칙번호에 해당하는 부칙 보기"
+    },
+    {
+      "name": "BD",
+      "type": "char",
+      "description": "별표표시 생략(기본값) : 법령+별표 ON : 모든 별표 표시"
+    },
+    {
+      "name": "BT",
+      "type": "int",
+      "description": "별표구분 별표표시가 on일 경우 값을 읽어들임 (별표=1/서식=2/별지=3/별도=4/부록=5)"
+    },
+    {
+      "name": "BN",
+      "type": "int",
+      "description": "별표번호 별표표시가 on일 경우 값을 읽어들임"
+    },
+    {
+      "name": "BG",
+      "type": "int",
+      "description": "별표가지번호 별표표시가 on일 경우 값을 읽어들임"
+    },
+    {
+      "name": "type",
+      "type": "char",
+      "description": "출력 형태 : HTML"
+    },
+    {
+      "name": "mobileYn",
+      "type": "char : Y (필수)",
+      "description": "모바일여부"
+    }
+  ],
+  "responseFields": [],
+  "sampleUrls": [
+    {
+      "description": "1. 자동차관리법 ID HTML 조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=law&ID=1747&type=HTML&mobileYn=Y"
+    },
+    {
+      "description": "2. 자동차관리법 법령 seq HTML조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=law&MST=91689&type=HTML&mobileYn=Y"
+    }
+  ],
+  "crawledAt": "2025-12-10T09:22:49.972Z"
+}

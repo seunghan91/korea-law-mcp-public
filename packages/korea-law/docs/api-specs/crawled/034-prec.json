@@ -1,0 +1,125 @@
+{
+  "index": 34,
+  "name": "판례 본문 조회 API",
+  "target": "prec",
+  "requestUrl": "http://www.law.go.kr/DRF/lawService.do?target=prec",
+  "requestParams": [
+    {
+      "name": "OC",
+      "type": "string(필수)",
+      "description": "사용자 이메일의 ID(g4c@korea.kr일경우 OC값=g4c)"
+    },
+    {
+      "name": "target",
+      "type": "string : prec(필수)",
+      "description": "서비스 대상"
+    },
+    {
+      "name": "type",
+      "type": "char(필수)",
+      "description": "출력 형태 : HTML/XML/JSON *국세청 판례 본문 조회는 HTML만 가능합니다"
+    },
+    {
+      "name": "ID",
+      "type": "char(필수)",
+      "description": "판례 일련번호"
+    },
+    {
+      "name": "LM",
+      "type": "string",
+      "description": "판례명"
+    }
+  ],
+  "responseFields": [
+    {
+      "name": "판례정보일련번호",
+      "type": "int",
+      "description": "판례정보일련번호"
+    },
+    {
+      "name": "사건명",
+      "type": "string",
+      "description": "사건명"
+    },
+    {
+      "name": "사건번호",
+      "type": "string",
+      "description": "사건번호"
+    },
+    {
+      "name": "선고일자",
+      "type": "int",
+      "description": "선고일자"
+    },
+    {
+      "name": "선고",
+      "type": "string",
+      "description": "선고"
+    },
+    {
+      "name": "법원명",
+      "type": "string",
+      "description": "법원명"
+    },
+    {
+      "name": "법원종류코드",
+      "type": "int",
+      "description": "법원종류코드(대법원:400201, 하위법원:400202)"
+    },
+    {
+      "name": "사건종류명",
+      "type": "string",
+      "description": "사건종류명"
+    },
+    {
+      "name": "사건종류코드",
+      "type": "int",
+      "description": "사건종류코드"
+    },
+    {
+      "name": "판결유형",
+      "type": "string",
+      "description": "판결유형"
+    },
+    {
+      "name": "판시사항",
+      "type": "string",
+      "description": "판시사항"
+    },
+    {
+      "name": "판결요지",
+      "type": "string",
+      "description": "판결요지"
+    },
+    {
+      "name": "참조조문",
+      "type": "string",
+      "description": "참조조문"
+    },
+    {
+      "name": "참조판례",
+      "type": "string",
+      "description": "참조판례"
+    },
+    {
+      "name": "판례내용",
+      "type": "string",
+      "description": "판례내용"
+    }
+  ],
+  "sampleUrls": [
+    {
+      "description": "1. 판례일련번호가 228541인 판례 HTML 조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=prec&ID=228541&type=HTML"
+    },
+    {
+      "description": "2. 판례일련번호가 228541인 판례 XML 조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=prec&ID=228541&type=XML"
+    },
+    {
+      "description": "3. 판례일련번호가 228541인 판례 JSON 조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=prec&ID=228541&type=JSON"
+    }
+  ],
+  "crawledAt": "2025-12-10T09:22:28.396Z"
+}

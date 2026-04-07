@@ -1,0 +1,105 @@
+name: Daily Law Changes Sync
+
+on:
+  schedule:
+    # 매일 한국시간 오전 6시 (UTC 21:00)
+    - cron: '0 21 * * *'
+  workflow_dispatch:  # 수동 실행 가능
+    inputs:
+      scrape_categories:
+        description: '스크래핑 카테고리 (all, pending, abolished, temporary, unconstitutional)'
+        required: false
+        default: 'all'
+
+jobs:
+  sync-law-changes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium
+
+      - name: Sync law changes from API
+        env:
+          KOREA_LAW_API_KEY: ${{ secrets.KOREA_LAW_API_KEY }}
+        run: |
+          echo "=== API 기반 법령 변경사항 동기화 ==="
+          npx ts-node scripts/sync-law-changes.ts --category all || true
+
+      - name: Scrape law changes from website
+        run: |
+          echo "=== 웹 스크래핑 법령 변경사항 동기화 ==="
+          CATEGORY="${{ github.event.inputs.scrape_categories || 'all' }}"
+          npx ts-node --project scripts/tsconfig.json scripts/scrape-law-changes.ts --category "$CATEGORY"
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if [ -n "$(git status --porcelain data/)" ]; then
+            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "DB에 변경사항이 있습니다."
+          else
+            echo "changes=false" >> $GITHUB_OUTPUT
+            echo "변경사항이 없습니다."
+          fi
+
+      - name: Commit and push changes
+        if: steps.check_changes.outputs.changes == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data/korea-law.db
+          git commit -m "chore: daily law changes sync $(date +'%Y-%m-%d')"
+          git push
+
+      - name: Sync to Supabase
+        if: steps.check_changes.outputs.changes == 'true'
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          echo "=== Supabase 동기화 ==="
+          npx ts-node --project scripts/tsconfig.json scripts/sync-law-changes-to-supabase.ts || echo "Supabase 동기화 실패 (secrets 미설정?)"
+
+      - name: Generate summary
+        run: |
+          echo "## 법령 변경사항 동기화 완료" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📊 동기화 결과" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ -f "data/korea-law.db" ]; then
+            echo "#### 법령 변경 현황 (웹 스크래핑)" >> $GITHUB_STEP_SUMMARY
+            echo "| 카테고리 | 건수 |" >> $GITHUB_STEP_SUMMARY
+            echo "|----------|------|" >> $GITHUB_STEP_SUMMARY
+            sqlite3 data/korea-law.db "SELECT category, COUNT(*) FROM LawChanges GROUP BY category ORDER BY COUNT(*) DESC;" | while IFS='|' read cat cnt; do
+              echo "| $cat | $cnt |" >> $GITHUB_STEP_SUMMARY
+            done
+
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "#### 🚨 30일 이내 시행 예정 법령 (상위 10건)" >> $GITHUB_STEP_SUMMARY
+            echo "| 법령명 | 시행일 | D-Day |" >> $GITHUB_STEP_SUMMARY
+            echo "|--------|--------|-------|" >> $GITHUB_STEP_SUMMARY
+            sqlite3 data/korea-law.db "SELECT law_name, target_date, days_until_target FROM LawChanges WHERE category='시행예정법령' AND days_until_target BETWEEN 0 AND 30 ORDER BY days_until_target ASC LIMIT 10;" | while IFS='|' read name date days; do
+              echo "| $name | $date | D-$days |" >> $GITHUB_STEP_SUMMARY
+            done
+
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "#### 🤖 인공지능 관련 법령" >> $GITHUB_STEP_SUMMARY
+            sqlite3 data/korea-law.db "SELECT law_name, category, target_date FROM LawChanges WHERE law_name LIKE '%인공지능%' OR law_name LIKE '%AI%';" | while IFS='|' read name cat date; do
+              echo "- **$name** [$cat] ($date)" >> $GITHUB_STEP_SUMMARY
+            done
+          fi

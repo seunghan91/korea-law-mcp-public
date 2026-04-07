@@ -1,0 +1,50 @@
+{
+  "index": 85,
+  "name": "모바일 법령해석례 본문 조회 가이드API",
+  "target": "expc",
+  "requestUrl": "http://www.law.go.kr/DRF/lawService.do?target=expc&mobileYn=Y",
+  "requestParams": [
+    {
+      "name": "OC",
+      "type": "string(필수)",
+      "description": "사용자 이메일의 ID(g4c@korea.kr일경우 OC값=g4c)"
+    },
+    {
+      "name": "target",
+      "type": "string : expc(필수)",
+      "description": "서비스 대상"
+    },
+    {
+      "name": "ID",
+      "type": "int",
+      "description": "법령해석례 일련번호"
+    },
+    {
+      "name": "LM",
+      "type": "string",
+      "description": "법령해석례명"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "출력 형태 : HTML"
+    },
+    {
+      "name": "mobileYn",
+      "type": "char : Y (필수)",
+      "description": "모바일여부"
+    }
+  ],
+  "responseFields": [],
+  "sampleUrls": [
+    {
+      "description": "1. 법령해석례일련번호가 281909인 해석례 HTML 조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=expc&ID=334617&type=HTML&mobileYn=Y"
+    },
+    {
+      "description": "2. 여성가족부 - 건강가정기본법 제35조 제2항 관련 법령해석례 조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=expc&ID=315191&LM=%EC%97%AC%EC%84%B1%EA%B0%80%EC%A1%B1%EB%B6%80%20-%20%EA%B1%B4%EA%B0%95%EA%B0%80%EC%A0%95%EA%B8%B0%EB%B3%B8%EB%B2%95%20%EC%A0%9C35%EC%A1%B0%20%EC%A0%9C2%ED%95%AD%20%EA%B4%80%EB%A0%A8&type=HTML&mobileYn=Y"
+    }
+  ],
+  "crawledAt": "2025-12-10T09:22:55.079Z"
+}

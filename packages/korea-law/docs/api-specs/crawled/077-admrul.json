@@ -1,0 +1,46 @@
+{
+  "index": 77,
+  "name": "모바일 행정규칙 본문 조회 가이드API",
+  "target": "admrul",
+  "requestUrl": "http://www.law.go.kr/DRF/lawService.do?target=admrul&mobileYn=Y",
+  "requestParams": [
+    {
+      "name": "OC",
+      "type": "string(필수)",
+      "description": "사용자 이메일의 ID(g4c@korea.kr일경우 OC값=g4c)"
+    },
+    {
+      "name": "target",
+      "type": "string : admrul(필수)",
+      "description": "서비스 대상"
+    },
+    {
+      "name": "ID",
+      "type": "char",
+      "description": "행정규칙 일련번호"
+    },
+    {
+      "name": "LM",
+      "type": "Char",
+      "description": "행정규칙명 조회하고자 하는 정확한 행정규칙명을 입력"
+    },
+    {
+      "name": "type",
+      "type": "Char",
+      "description": "출력 형태 : HTML"
+    },
+    {
+      "name": "mobileYn",
+      "type": "char : Y (필수)",
+      "description": "모바일여부"
+    }
+  ],
+  "responseFields": [],
+  "sampleUrls": [
+    {
+      "description": "1. 행정규칙 HTML 상세조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=admrul&ID=62505&type=HTML&mobileYn=Y"
+    }
+  ],
+  "crawledAt": "2025-12-10T09:22:51.020Z"
+}

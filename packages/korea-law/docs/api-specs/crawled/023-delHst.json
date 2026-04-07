@@ -1,0 +1,100 @@
+{
+  "index": 23,
+  "name": "삭제 데이터 목록 조회 API",
+  "target": "delHst",
+  "requestUrl": "http://www.law.go.kr/DRF/lawSearch.do?target=delHst",
+  "requestParams": [
+    {
+      "name": "OC",
+      "type": "string(필수)",
+      "description": "사용자 이메일의 ID(g4c@korea.kr일경우 OC값=g4c)"
+    },
+    {
+      "name": "target",
+      "type": "string(필수)",
+      "description": "서비스 대상 : datDel"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "출력 형태 XML/JSON"
+    },
+    {
+      "name": "display",
+      "type": "int",
+      "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+      "name": "page",
+      "type": "int",
+      "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+      "name": "knd",
+      "type": "int",
+      "description": "데이터 종류 법령 : 1 행정규칙 : 2 자치법규 : 3 학칙공단 : 13"
+    },
+    {
+      "name": "delDt",
+      "type": "int",
+      "description": "데이터 삭제 일자 검색 (YYYYMMDD)"
+    },
+    {
+      "name": "frmDttoDt",
+      "type": "int",
+      "description": "데이터 삭제 일자 범위 검색 (YYYYMMDD)"
+    }
+  ],
+  "responseFields": [
+    {
+      "name": "target",
+      "type": "string",
+      "description": "검색서비스 대상"
+    },
+    {
+      "name": "totalCnt",
+      "type": "int",
+      "description": "검색건수"
+    },
+    {
+      "name": "page",
+      "type": "int",
+      "description": "결과페이지번호"
+    },
+    {
+      "name": "law id",
+      "type": "int",
+      "description": "결과 번호"
+    },
+    {
+      "name": "일련번호",
+      "type": "int",
+      "description": "데이터 일련번호"
+    },
+    {
+      "name": "구분명",
+      "type": "string",
+      "description": "데이터 구분명 (법령 / 행정규칙 / 자치법규 등)"
+    },
+    {
+      "name": "삭제일자",
+      "type": "string",
+      "description": "데이터 삭제일자"
+    }
+  ],
+  "sampleUrls": [
+    {
+      "description": "1. 삭제데이터 전체 목록 XML 검색",
+      "url": "https://www.law.go.kr/DRF/lawSearch.do?OC=test&target=delHst&type=XML"
+    },
+    {
+      "description": "2. 삭제 대학/공공기관규정 날짜 단위(20231013) XML 조회",
+      "url": "https://www.law.go.kr/DRF/lawSearch.do?OC=test&target=delHst&knd=13&delDt=20231013&type=XML"
+    },
+    {
+      "description": "3. 삭제 자치법규 날짜 범위(20231013~20231016) JSON 조회",
+      "url": "https://www.law.go.kr/DRF/lawSearch.do?OC=test&target=delHst&knd=3&frmDt=20231013&toDt=20231016&type=JSON"
+    }
+  ],
+  "crawledAt": "2025-12-10T09:22:22.680Z"
+}

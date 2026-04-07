@@ -1,0 +1,217 @@
+{
+  "index": 71,
+  "name": "학칙공단공공기관 본문 조회 API",
+  "target": "school",
+  "requestUrl": "http://www.law.go.kr/DRF/lawService.do?target=school(or public or pi)",
+  "requestParams": [
+    {
+      "name": "OC",
+      "type": "string(필수)",
+      "description": "사용자 이메일의 ID(g4c@korea.kr일경우 OC값=g4c)"
+    },
+    {
+      "name": "target",
+      "type": "string(필수)",
+      "description": "서비스 대상 (대학 : school / 지방공사공단 : public / 공공기관 : pi)"
+    },
+    {
+      "name": "type",
+      "type": "char(필수)",
+      "description": "출력 형태 : HTML/XML/JSON"
+    },
+    {
+      "name": "ID",
+      "type": "char",
+      "description": "학칙공단 일련번호"
+    },
+    {
+      "name": "LID",
+      "type": "char",
+      "description": "학칙공단 ID"
+    },
+    {
+      "name": "LM",
+      "type": "string",
+      "description": "학칙공단명조회하고자 하는 정확한 학칙공단명을 입력"
+    }
+  ],
+  "responseFields": [
+    {
+      "name": "행정규칙일련번호",
+      "type": "int",
+      "description": "학칙공단 일련번호"
+    },
+    {
+      "name": "행정규칙명",
+      "type": "string",
+      "description": "학칙공단명"
+    },
+    {
+      "name": "행정규칙종류",
+      "type": "string",
+      "description": "학칙공단 종류"
+    },
+    {
+      "name": "행정규칙종류코드",
+      "type": "string",
+      "description": "학칙공단 종류코드"
+    },
+    {
+      "name": "발령일자",
+      "type": "int",
+      "description": "발령일자"
+    },
+    {
+      "name": "발령번호",
+      "type": "string",
+      "description": "발령번호"
+    },
+    {
+      "name": "제개정구분명",
+      "type": "string",
+      "description": "제개정구분명"
+    },
+    {
+      "name": "제개정구분코드",
+      "type": "string",
+      "description": "제개정구분코드"
+    },
+    {
+      "name": "조문형식여부",
+      "type": "string",
+      "description": "조문형식여부"
+    },
+    {
+      "name": "행정규칙ID",
+      "type": "int",
+      "description": "학칙공단ID"
+    },
+    {
+      "name": "소관부처명",
+      "type": "string",
+      "description": "소관부처명"
+    },
+    {
+      "name": "소관부처코드",
+      "type": "string",
+      "description": "소관부처코드"
+    },
+    {
+      "name": "담당부서기관코드",
+      "type": "string",
+      "description": "담당부서기관코드"
+    },
+    {
+      "name": "담당부서기관명",
+      "type": "string",
+      "description": "담당부서기관명"
+    },
+    {
+      "name": "담당자명",
+      "type": "string",
+      "description": "담당자명"
+    },
+    {
+      "name": "전화번호",
+      "type": "string",
+      "description": "전화번호"
+    },
+    {
+      "name": "현행여부",
+      "type": "string",
+      "description": "현행여부"
+    },
+    {
+      "name": "생성일자",
+      "type": "string",
+      "description": "생성일자"
+    },
+    {
+      "name": "조문내용",
+      "type": "string",
+      "description": "조문내용"
+    },
+    {
+      "name": "부칙공포일자",
+      "type": "string",
+      "description": "부칙 공포일자"
+    },
+    {
+      "name": "부칙공포번호",
+      "type": "string",
+      "description": "부칙 공포번호"
+    },
+    {
+      "name": "부칙내용",
+      "type": "string",
+      "description": "부칙내용"
+    },
+    {
+      "name": "별표단위 별표키",
+      "type": "string",
+      "description": "별표단위 별표키"
+    },
+    {
+      "name": "별표번호",
+      "type": "string",
+      "description": "별표번호"
+    },
+    {
+      "name": "별표가지번호",
+      "type": "string",
+      "description": "별표가지번호"
+    },
+    {
+      "name": "별표구분",
+      "type": "string",
+      "description": "별표구분"
+    },
+    {
+      "name": "별표제목",
+      "type": "string",
+      "description": "별표제목"
+    },
+    {
+      "name": "별표서식파일링크",
+      "type": "string",
+      "description": "별표서식 파일링크"
+    },
+    {
+      "name": "개정문내용",
+      "type": "string",
+      "description": "개정문내용"
+    },
+    {
+      "name": "제개정이유내용",
+      "type": "string",
+      "description": "제개정이유내용"
+    }
+  ],
+  "sampleUrls": [
+    {
+      "description": "1. 학칙공단 HTML 상세조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=school&LID=2055825&type=HTML"
+    },
+    {
+      "description": "http://www.law.go.kr/DRF/lawService.do?OC=test&target=school&LID=2055825&type=HTML",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=school&ID=2200000075994&type=HTML"
+    },
+    {
+      "description": "2. 학칙공단 XML 상세조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=school&LID=2055825&type=XML"
+    },
+    {
+      "description": "http://www.law.go.kr/DRF/lawService.do?OC=test&target=school&LID=2055825&type=XML",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=school&ID=2200000075994&type=XML"
+    },
+    {
+      "description": "3. 학칙공단 JSON 상세조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=school&LID=2055825&type=JSON"
+    },
+    {
+      "description": "http://www.law.go.kr/DRF/lawService.do?OC=test&target=school&LID=2055825&type=JSON",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=school&ID=2200000075994&type=JSON"
+    }
+  ],
+  "crawledAt": "2025-12-10T09:22:47.916Z"
+}

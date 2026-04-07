@@ -1,0 +1,31 @@
+{
+  "index": 14,
+  "name": "법령-자치법규 연계현황 조회 API",
+  "target": "drlaw",
+  "requestUrl": "http://www.law.go.kr/DRF/lawSearch.do?target=drlaw",
+  "requestParams": [
+    {
+      "name": "OC",
+      "type": "string(필수)",
+      "description": "사용자 이메일의 ID(g4c@korea.kr일경우 OC값=g4c)"
+    },
+    {
+      "name": "target",
+      "type": "string : drlaw(필수)",
+      "description": "서비스 대상"
+    },
+    {
+      "name": "type",
+      "type": "char(필수)",
+      "description": "출력 형태 HTML"
+    }
+  ],
+  "responseFields": [],
+  "sampleUrls": [
+    {
+      "description": "1. 법령-자치법규 연계현황 조회",
+      "url": "https://www.law.go.kr/DRF/lawSearch.do?OC=test&target=drlaw&type=HTML"
+    }
+  ],
+  "crawledAt": "2025-12-10T09:22:17.889Z"
+}

@@ -1,0 +1,11 @@
+{
+  "seq": 290,
+  "name": "OPEN 활용가이드",
+  "target": "law",
+  "endpoint": "/lawSearch.do",
+  "requestUrl": "http://www.law.go.kr/DRF/lawSearch.do?target=law",
+  "requestParams": [],
+  "responseFields": [],
+  "sampleUrls": [],
+  "crawledAt": "2025-12-10T09:03:13.732Z"
+}

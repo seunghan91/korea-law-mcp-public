@@ -1,0 +1,170 @@
+{
+  "index": 188,
+  "name": "해양안전심판원 특별행정심판재결례 본문 조회 API",
+  "target": "kmstSpecialDecc",
+  "requestUrl": "http://www.law.go.kr/DRF/lawService.do?target=kmstSpecialDecc",
+  "requestParams": [
+    {
+      "name": "OC",
+      "type": "string(필수)",
+      "description": "사용자 이메일의 ID(g4c@korea.kr일경우 OC값=g4c)"
+    },
+    {
+      "name": "target",
+      "type": "string : kmstSpecialDecc(필수)",
+      "description": "서비스 대상"
+    },
+    {
+      "name": "type",
+      "type": "char(필수)",
+      "description": "출력 형태 : HTML/XML/JSON"
+    },
+    {
+      "name": "ID",
+      "type": "char(필수)",
+      "description": "특별행정심판재결례일련번호"
+    },
+    {
+      "name": "LM",
+      "type": "string",
+      "description": "특별행정심판재결례명"
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "응답항목 옵션(사건명, 사건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+  ],
+  "responseFields": [
+    {
+      "name": "특별행정심판재결례일련번호",
+      "type": "int",
+      "description": "특별행정심판재결례일련번호"
+    },
+    {
+      "name": "사건명",
+      "type": "string",
+      "description": "사건명"
+    },
+    {
+      "name": "사건번호",
+      "type": "string",
+      "description": "사건번호"
+    },
+    {
+      "name": "처분일자",
+      "type": "int",
+      "description": "처분일자"
+    },
+    {
+      "name": "의결일자",
+      "type": "int",
+      "description": "의결일자"
+    },
+    {
+      "name": "처분청",
+      "type": "string",
+      "description": "처분청"
+    },
+    {
+      "name": "재결청",
+      "type": "string",
+      "description": "재결청"
+    },
+    {
+      "name": "재결례유형명",
+      "type": "string",
+      "description": "재결례유형명"
+    },
+    {
+      "name": "재결례유형코드",
+      "type": "int",
+      "description": "재결례유형코드"
+    },
+    {
+      "name": "재결번호",
+      "type": "int",
+      "description": "재결번호"
+    },
+    {
+      "name": "주문",
+      "type": "string",
+      "description": "주문"
+    },
+    {
+      "name": "청구취지",
+      "type": "string",
+      "description": "청구취지"
+    },
+    {
+      "name": "이유",
+      "type": "string",
+      "description": "이유"
+    },
+    {
+      "name": "해양사고관련자",
+      "type": "string",
+      "description": "해양사고관련자"
+    },
+    {
+      "name": "심판관",
+      "type": "string",
+      "description": "심판관"
+    },
+    {
+      "name": "사고유형",
+      "type": "string",
+      "description": "사고유형"
+    },
+    {
+      "name": "선박유형",
+      "type": "string",
+      "description": "선박유형"
+    },
+    {
+      "name": "해심위치",
+      "type": "string",
+      "description": "해심위치"
+    },
+    {
+      "name": "재심청구안내",
+      "type": "string",
+      "description": "재심청구안내"
+    },
+    {
+      "name": "별지",
+      "type": "string",
+      "description": "별지"
+    },
+    {
+      "name": "의결종류",
+      "type": "string",
+      "description": "의결종류"
+    },
+    {
+      "name": "재결위원회",
+      "type": "string",
+      "description": "재결위원회"
+    },
+    {
+      "name": "데이터기준일시",
+      "type": "string",
+      "description": "데이터기준일시"
+    }
+  ],
+  "sampleUrls": [
+    {
+      "description": "1. 특별행정심판재결례일련번호가 2인 특별행정심판재결례 XML 조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=kmstSpecialDecc&ID=2&type=XML"
+    },
+    {
+      "description": "2. '기선 제12금영호 침몰사건' 특별행정심판재결례 조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=kmstSpecialDecc&ID=2&LM=%EA%B8%B0%EC%84%A0%20%EC%A0%9C12%EA%B8%88%EC%98%81%ED%98%B8%20%EC%B9%A8%EB%AA%B0%EC%82%AC%EA%B1%B4&type=HTML"
+    },
+    {
+      "description": "3. 특별행정심판재결례일련번호가 2인 특별행정심판재결례 JSON 조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=kmstSpecialDecc&ID=2&type=JSON"
+    }
+  ],
+  "crawledAt": "2025-12-10T09:23:48.471Z"
+}

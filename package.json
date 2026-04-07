@@ -1,0 +1,23 @@
+{
+  "name": "korea-law-mcp-public",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Public monorepo — Korean law MCP server (korea-law + korea-law-mcp REST wrapper)",
+  "license": "MIT",
+  "homepage": "https://github.com/seunghan91/korea-law-mcp-public",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seunghan91/korea-law-mcp-public.git"
+  },
+  "scripts": {
+    "build": "pnpm -r build",
+    "dev:mcp": "pnpm --filter korea-law-mcp dev",
+    "sync:ordinances": "pnpm --filter korea-law exec ts-node src/sync/ordinance-sync-es.ts",
+    "test": "pnpm -r test"
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@9.0.0"
+}

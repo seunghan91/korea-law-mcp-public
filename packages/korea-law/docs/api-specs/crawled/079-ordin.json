@@ -1,0 +1,50 @@
+{
+  "index": 79,
+  "name": "모바일 자치법규 본문 조회 가이드API",
+  "target": "ordin",
+  "requestUrl": "http://www.law.go.kr/DRF/lawService.do?target=ordin",
+  "requestParams": [
+    {
+      "name": "OC",
+      "type": "string(필수)",
+      "description": "사용자 이메일의 ID(g4c@korea.kr일경우 OC값=g4c)"
+    },
+    {
+      "name": "target",
+      "type": "string : ordin(필수)",
+      "description": "서비스 대상"
+    },
+    {
+      "name": "ID",
+      "type": "char",
+      "description": "자치법규 ID"
+    },
+    {
+      "name": "MST",
+      "type": "string",
+      "description": "자치법규 마스터 번호"
+    },
+    {
+      "name": "type",
+      "type": "char",
+      "description": "출력 형태 : HTML"
+    },
+    {
+      "name": "mobileYn",
+      "type": "char : Y (필수)",
+      "description": "모바일여부"
+    }
+  ],
+  "responseFields": [],
+  "sampleUrls": [
+    {
+      "description": "1. 자치법규 ID HTML 조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=ordin&ID=2047729&type=HTML&mobileYn=Y"
+    },
+    {
+      "description": "2. 자치법규 MST HTML 조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=ordin&type=HTML&mobileYn=Y&MST=1062134"
+    }
+  ],
+  "crawledAt": "2025-12-10T09:22:51.999Z"
+}

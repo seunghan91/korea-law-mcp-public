@@ -1,0 +1,180 @@
+{
+  "index": 11,
+  "name": "일자별 조문 개정 이력 목록 조회 API",
+  "target": "lsJoHstInf",
+  "requestUrl": "http://www.law.go.kr/DRF/lawSearch.do?target=lsJoHstInf",
+  "requestParams": [
+    {
+      "name": "OC",
+      "type": "string(필수)",
+      "description": "사용자 이메일의 ID(g4c@korea.kr일경우 OC값=g4c)"
+    },
+    {
+      "name": "target",
+      "type": "string : lsJoHstInf(필수)",
+      "description": "서비스 대상"
+    },
+    {
+      "name": "type",
+      "type": "char(필수)",
+      "description": "출력 형태 XML/JSON"
+    },
+    {
+      "name": "regDt",
+      "type": "int",
+      "description": "조문 개정일, 8자리 (20150101)"
+    },
+    {
+      "name": "fromRegDt",
+      "type": "int",
+      "description": "조회기간 시작일, 8자리 (20150101)"
+    },
+    {
+      "name": "toRegDt",
+      "type": "int",
+      "description": "조회기간 종료일, 8자리 (20150101)"
+    },
+    {
+      "name": "ID",
+      "type": "int",
+      "description": "법령ID"
+    },
+    {
+      "name": "JO",
+      "type": "int",
+      "description": "조문번호 조문번호 4자리 + 조 가지번호 2자리 (000202 : 제2조의2)"
+    },
+    {
+      "name": "org",
+      "type": "string",
+      "description": "소관부처별 검색(소관부처코드 제공)"
+    },
+    {
+      "name": "page",
+      "type": "int",
+      "description": "검색 결과 페이지 (default=1)"
+    }
+  ],
+  "responseFields": [
+    {
+      "name": "target",
+      "type": "string",
+      "description": "검색서비스 대상"
+    },
+    {
+      "name": "totalCnt",
+      "type": "int",
+      "description": "검색한 기간에 개정 조문이 있는 법령의 건수"
+    },
+    {
+      "name": "law id",
+      "type": "int",
+      "description": "결과 번호"
+    },
+    {
+      "name": "법령일련번호",
+      "type": "int",
+      "description": "법령일련번호"
+    },
+    {
+      "name": "법령명한글",
+      "type": "string",
+      "description": "법령명한글"
+    },
+    {
+      "name": "법령ID",
+      "type": "int",
+      "description": "법령ID"
+    },
+    {
+      "name": "공포일자",
+      "type": "int",
+      "description": "공포일자"
+    },
+    {
+      "name": "공포번호",
+      "type": "int",
+      "description": "공포번호"
+    },
+    {
+      "name": "제개정구분명",
+      "type": "string",
+      "description": "제개정구분명"
+    },
+    {
+      "name": "소관부처명",
+      "type": "string",
+      "description": "소관부처명"
+    },
+    {
+      "name": "소관부처코드",
+      "type": "string",
+      "description": "소관부처코드"
+    },
+    {
+      "name": "법령구분명",
+      "type": "string",
+      "description": "법령구분명"
+    },
+    {
+      "name": "시행일자",
+      "type": "int",
+      "description": "시행일자"
+    },
+    {
+      "name": "jo num",
+      "type": "string",
+      "description": "조 구분 번호"
+    },
+    {
+      "name": "조문정보",
+      "type": "string",
+      "description": "조문정보"
+    },
+    {
+      "name": "조문번호",
+      "type": "string",
+      "description": "조문번호"
+    },
+    {
+      "name": "변경사유",
+      "type": "string",
+      "description": "변경사유"
+    },
+    {
+      "name": "조문링크",
+      "type": "string",
+      "description": "조문링크"
+    },
+    {
+      "name": "조문변경이력상세링크",
+      "type": "string",
+      "description": "조문변경이력상세링크"
+    },
+    {
+      "name": "조문개정일",
+      "type": "int",
+      "description": "조문제개정일"
+    },
+    {
+      "name": "조문시행일",
+      "type": "int",
+      "description": "조문시행일"
+    }
+  ],
+  "sampleUrls": [
+    {
+      "description": "1. 조문 개정 일자가 20250401인 조문 XML 검색",
+      "url": "https://law.go.kr/DRF/lawSearch.do?target=lsJoHstInf&OC=test&regDt=20250401&type=XML"
+    },
+    {
+      "description": "2. 조문 개정 일자 기간 검색 중 검색 기간 시작일이 20250101인 조문 XML 검색",
+      "url": "https://www.law.go.kr/DRF/lawSearch.do?target=lsJoHstInf&OC=test&fromRegDt=20250101&type=XML"
+    },
+    {
+      "description": "3. 조문 개정 일자가 20250401이면서 기관이 보건복지부인 조문 JSON 검색",
+      "url": "https://www.law.go.kr/DRF/lawSearch.do?target=lsJoHstInf&OC=test&regDt=20250401&org=1352000&type=JSON"
+    }
+  ],
+  "crawledAt": "2025-12-10T09:22:16.418Z"
+}

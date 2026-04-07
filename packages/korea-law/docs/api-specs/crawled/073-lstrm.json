@@ -1,0 +1,80 @@
+{
+  "index": 73,
+  "name": "법령용어 본문 조회 가이드API",
+  "target": "lstrm",
+  "requestUrl": "http://www.law.go.kr/DRF/lawService.do?target=lstrm",
+  "requestParams": [
+    {
+      "name": "OC",
+      "type": "string(필수)",
+      "description": "사용자 이메일의 ID(g4c@korea.kr일경우 OC값=g4c)"
+    },
+    {
+      "name": "target",
+      "type": "string : lstrm(필수)",
+      "description": "서비스 대상"
+    },
+    {
+      "name": "type",
+      "type": "char(필수)",
+      "description": "출력 형태 : HTML/XML/JSON"
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "description": "상세조회하고자 하는 법령용어 명"
+    }
+  ],
+  "responseFields": [
+    {
+      "name": "법령용어 일련번호",
+      "type": "int",
+      "description": "법령용어 일련번호"
+    },
+    {
+      "name": "법령용어명_한글",
+      "type": "string",
+      "description": "법령용어명 한글"
+    },
+    {
+      "name": "법령용어명_한자",
+      "type": "string",
+      "description": "법령용어명한자"
+    },
+    {
+      "name": "법령용어코드",
+      "type": "int",
+      "description": "법령용어코드"
+    },
+    {
+      "name": "법령용어코드명",
+      "type": "string",
+      "description": "법령용어코드명"
+    },
+    {
+      "name": "출처",
+      "type": "string",
+      "description": "출처"
+    },
+    {
+      "name": "법령용어정의",
+      "type": "string",
+      "description": "법령용어정의"
+    }
+  ],
+  "sampleUrls": [
+    {
+      "description": "1. 법령용어 선박 HTML 조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=lstrm&query=%EC%84%A0%EB%B0%95&type=HTML"
+    },
+    {
+      "description": "2. 법령용어 선박 XML 조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=lstrm&query=%EC%84%A0%EB%B0%95&type=XML"
+    },
+    {
+      "description": "3. 법령용어 선박 JSON 조회",
+      "url": "https://www.law.go.kr/DRF/lawService.do?OC=test&target=lstrm&query=%EC%84%A0%EB%B0%95&type=JSON"
+    }
+  ],
+  "crawledAt": "2025-12-10T09:22:48.935Z"
+}

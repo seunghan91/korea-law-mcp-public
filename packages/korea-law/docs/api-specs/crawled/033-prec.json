@@ -1,0 +1,209 @@
+{
+  "index": 33,
+  "name": "판례 목록 조회 API",
+  "target": "prec",
+  "requestUrl": "http://www.law.go.kr/DRF/lawSearch.do?target=prec",
+  "requestParams": [
+    {
+      "name": "OC",
+      "type": "string(필수)",
+      "description": "사용자 이메일의 ID(g4c@korea.kr일경우 OC값=g4c)"
+    },
+    {
+      "name": "target",
+      "type": "string : prec(필수)",
+      "description": "서비스 대상"
+    },
+    {
+      "name": "type",
+      "type": "char(필수)",
+      "description": "출력 형태 : HTML/XML/JSON"
+    },
+    {
+      "name": "search",
+      "type": "int",
+      "description": "검색범위 (기본 : 1 판례명) 2 : 본문검색"
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "description": "검색범위에서 검색을 원하는 질의(검색 결과 리스트) (정확한 검색을 위한 문자열 검색 query=\"자동차\")"
+    },
+    {
+      "name": "display",
+      "type": "int",
+      "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+      "name": "page",
+      "type": "int",
+      "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+      "name": "org",
+      "type": "string",
+      "description": "법원종류 (대법원:400201, 하위법원:400202)"
+    },
+    {
+      "name": "curt",
+      "type": "string",
+      "description": "법원명 (대법원, 서울고등법원, 광주지법, 인천지방법원)"
+    },
+    {
+      "name": "JO",
+      "type": "string",
+      "description": "참조법령명(형법, 민법 등)"
+    },
+    {
+      "name": "gana",
+      "type": "string",
+      "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "description": "정렬옵션 lasc : 사건명 오름차순 ldes : 사건명 내림차순 dasc : 선고일자 오름차순 ddes : 선고일자 내림차순(생략시 기본) nasc : 법원명 오름차순 ndes : 법원명 내림차순"
+    },
+    {
+      "name": "date",
+      "type": "int",
+      "description": "판례 선고일자"
+    },
+    {
+      "name": "prncYd",
+      "type": "string",
+      "description": "선고일자 검색(20090101~20090130)"
+    },
+    {
+      "name": "nb",
+      "type": "string",
+      "description": "판례 사건번호"
+    },
+    {
+      "name": "datSrcNm",
+      "type": "string",
+      "description": "데이터출처명(국세법령정보시스템, 근로복지공단산재판례, 대법원)"
+    },
+    {
+      "name": "popYn",
+      "type": "string",
+      "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+  ],
+  "responseFields": [
+    {
+      "name": "target",
+      "type": "string",
+      "description": "검색 대상"
+    },
+    {
+      "name": "공포번호",
+      "type": "string",
+      "description": "공포번호"
+    },
+    {
+      "name": "키워드",
+      "type": "string",
+      "description": "검색어"
+    },
+    {
+      "name": "section",
+      "type": "string",
+      "description": "검색범위(EvtNm:판례명/bdyText:본문)"
+    },
+    {
+      "name": "totalCnt",
+      "type": "int",
+      "description": "검색결과갯수"
+    },
+    {
+      "name": "page",
+      "type": "int",
+      "description": "출력페이지"
+    },
+    {
+      "name": "prec id",
+      "type": "int",
+      "description": "검색결과번호"
+    },
+    {
+      "name": "판례일련번호",
+      "type": "int",
+      "description": "판례일련번호"
+    },
+    {
+      "name": "사건명",
+      "type": "string",
+      "description": "사건명"
+    },
+    {
+      "name": "사건번호",
+      "type": "string",
+      "description": "사건번호"
+    },
+    {
+      "name": "선고일자",
+      "type": "string",
+      "description": "선고일자"
+    },
+    {
+      "name": "법원명",
+      "type": "string",
+      "description": "법원명"
+    },
+    {
+      "name": "법원종류코드",
+      "type": "int",
+      "description": "법원종류코드(대법원:400201, 하위법원:400202)"
+    },
+    {
+      "name": "사건종류명",
+      "type": "string",
+      "description": "사건종류명"
+    },
+    {
+      "name": "사건종류코드",
+      "type": "int",
+      "description": "사건종류코드"
+    },
+    {
+      "name": "판결유형",
+      "type": "string",
+      "description": "판결유형"
+    },
+    {
+      "name": "선고",
+      "type": "string",
+      "description": "선고"
+    },
+    {
+      "name": "데이터출처명",
+      "type": "string",
+      "description": "데이터출처명"
+    },
+    {
+      "name": "판례상세링크",
+      "type": "string",
+      "description": "판례상세링크"
+    }
+  ],
+  "sampleUrls": [
+    {
+      "description": "1. 사건명에 '담보권'이 들어가는 판례 목록 XML 검색",
+      "url": "https://www.law.go.kr/DRF/lawSearch.do?OC=test&target=prec&type=XML&query=%EB%8B%B4%EB%B3%B4%EA%B6%8C"
+    },
+    {
+      "description": "2. 사건명에 '담보권'이 들어가고 법원이 '대법원'인 판례 목록 HTML 검색",
+      "url": "https://www.law.go.kr/DRF/lawSearch.do?OC=test&target=prec&type=HTML&query=%EB%8B%B4%EB%B3%B4%EA%B6%8C&curt=%EB%8C%80%EB%B2%95%EC%9B%90"
+    },
+    {
+      "description": "3. 사건번호가 '2009느합133,2010느합21' 인 판례 목록 HTML 검색",
+      "url": "https://www.law.go.kr/DRF/lawSearch.do?OC=test&target=prec&type=HTML&nb=2009%EB%8A%90%ED%95%A9133,2010%EB%8A%90%ED%95%A921"
+    },
+    {
+      "description": "4. 데이터출처가 근로복지공단산재판례인 판례 목록 JSON 검색",
+      "url": "https://www.law.go.kr/DRF/lawSearch.do?OC=test&target=prec&type=JSON&datSrcNm=%EA%B7%BC%EB%A1%9C%EB%B3%B5%EC%A7%80%EA%B3%B5%EB%8B%A8%EC%82%B0%EC%9E%AC%ED%8C%90%EB%A1%80"
+    }
+  ],
+  "crawledAt": "2025-12-10T09:22:27.889Z"
+}

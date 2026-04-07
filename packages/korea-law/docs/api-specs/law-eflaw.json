@@ -1,0 +1,384 @@
+{
+  "$schema": "../api-spec-schema.json",
+  "apiId": "law-current-enforcement",
+  "name": "현행법령(시행일)",
+  "description": "국가법령정보센터 기준 현행법령 조회",
+  "target": "eflaw",
+  "baseUrl": "http://www.law.go.kr/DRF",
+  
+  "list": {
+    "endpoint": "/lawSearch.do",
+    "method": "GET",
+    "description": "현행법령(시행일) 목록 조회",
+    "sampleUrl": "http://www.law.go.kr/DRF/lawSearch.do?OC=test&target=eflaw&type=XML",
+    
+    "requestParams": {
+      "required": [
+        {
+          "name": "OC",
+          "type": "string",
+          "description": "사용자 이메일의 ID (g4c@korea.kr일 경우 OC값=g4c)"
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "value": "eflaw",
+          "description": "서비스 대상"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "enum": ["HTML", "XML", "JSON"],
+          "default": "XML",
+          "description": "출력 형태"
+        }
+      ],
+      "optional": [
+        {
+          "name": "search",
+          "type": "int",
+          "enum": [1, 2],
+          "default": 1,
+          "description": "검색범위 (1: 법령명, 2: 본문검색)"
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "description": "법령명에서 검색을 원하는 질의 (정확한 검색: query=\"자동차\")"
+        },
+        {
+          "name": "nw",
+          "type": "string",
+          "description": "현행/연혁/시행예정 구분 (1: 연혁, 2: 시행예정, 3: 현행, 복수선택 가능: 1,2,3)"
+        },
+        {
+          "name": "LID",
+          "type": "string",
+          "description": "법령ID (예: LID=830)"
+        },
+        {
+          "name": "display",
+          "type": "int",
+          "default": 20,
+          "max": 100,
+          "description": "검색된 결과 개수"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "default": 1,
+          "description": "검색 결과 페이지"
+        },
+        {
+          "name": "sort",
+          "type": "string",
+          "enum": ["lasc", "ldes", "dasc", "ddes", "nasc", "ndes", "efasc", "efdes"],
+          "default": "lasc",
+          "description": "정렬옵션 (lasc: 법령오름차순, ldes: 법령내림차순, dasc/ddes: 공포일자, nasc/ndes: 공포번호, efasc/efdes: 시행일자)"
+        },
+        {
+          "name": "efYd",
+          "type": "string",
+          "format": "YYYYMMDD~YYYYMMDD",
+          "description": "시행일자 범위 검색 (예: 20090101~20090130)"
+        },
+        {
+          "name": "date",
+          "type": "string",
+          "format": "YYYYMMDD",
+          "description": "공포일자 검색"
+        },
+        {
+          "name": "ancYd",
+          "type": "string",
+          "format": "YYYYMMDD~YYYYMMDD",
+          "description": "공포일자 범위 검색"
+        },
+        {
+          "name": "ancNo",
+          "type": "string",
+          "format": "N~N",
+          "description": "공포번호 범위 검색 (예: 306~400)"
+        },
+        {
+          "name": "rrClsCd",
+          "type": "string",
+          "enum": ["300201", "300202", "300203", "300204", "300205", "300206", "300207", "300208", "300209", "300210"],
+          "enumLabels": {
+            "300201": "제정",
+            "300202": "일부개정",
+            "300203": "전부개정",
+            "300204": "폐지",
+            "300205": "폐지제정",
+            "300206": "일괄개정",
+            "300207": "일괄폐지",
+            "300208": "기타",
+            "300209": "타법개정",
+            "300210": "타법폐지"
+          },
+          "description": "법령 제개정 종류"
+        },
+        {
+          "name": "nb",
+          "type": "int",
+          "description": "법령의 공포번호 검색"
+        },
+        {
+          "name": "org",
+          "type": "string",
+          "description": "소관부처별 검색 (소관부처코드, 예: 1613000=국토교통부)"
+        },
+        {
+          "name": "knd",
+          "type": "string",
+          "description": "법령종류 (코드)"
+        },
+        {
+          "name": "gana",
+          "type": "string",
+          "description": "사전식 검색 (ga, na, da...)"
+        },
+        {
+          "name": "popYn",
+          "type": "string",
+          "enum": ["Y"],
+          "description": "상세화면 팝업창 여부"
+        }
+      ]
+    },
+    
+    "responseFields": {
+      "wrapper": "LawSearch",
+      "itemTag": "law",
+      "meta": [
+        { "name": "target", "type": "string", "description": "검색서비스 대상" },
+        { "name": "키워드", "type": "string", "description": "검색어" },
+        { "name": "section", "type": "string", "description": "검색범위" },
+        { "name": "totalCnt", "type": "int", "description": "검색건수" },
+        { "name": "page", "type": "int", "description": "결과페이지번호" }
+      ],
+      "item": [
+        { "name": "법령일련번호", "type": "int", "description": "법령일련번호" },
+        { "name": "현행연혁코드", "type": "string", "description": "현행연혁코드" },
+        { "name": "법령명한글", "type": "string", "description": "법령명한글" },
+        { "name": "법령약칭명", "type": "string", "description": "법령약칭명" },
+        { "name": "법령ID", "type": "int", "description": "법령ID" },
+        { "name": "공포일자", "type": "int", "format": "YYYYMMDD", "description": "공포일자" },
+        { "name": "공포번호", "type": "int", "description": "공포번호" },
+        { "name": "제개정구분명", "type": "string", "description": "제개정구분명" },
+        { "name": "소관부처코드", "type": "string", "description": "소관부처코드" },
+        { "name": "소관부처명", "type": "string", "description": "소관부처명" },
+        { "name": "법령구분명", "type": "string", "description": "법령구분명 (헌법/법률/대통령령 등)" },
+        { "name": "공동부령구분", "type": "string", "description": "공동부령구분" },
+        { "name": "시행일자", "type": "int", "format": "YYYYMMDD", "description": "시행일자" },
+        { "name": "자법타법여부", "type": "string", "description": "자법타법여부" },
+        { "name": "법령상세링크", "type": "string", "description": "법령상세링크" }
+      ]
+    }
+  },
+  
+  "detail": {
+    "endpoint": "/lawService.do",
+    "method": "GET",
+    "description": "현행법령(시행일) 본문 조회",
+    "sampleUrl": "http://www.law.go.kr/DRF/lawService.do?OC=test&target=eflaw&ID=1747&type=XML",
+    
+    "requestParams": {
+      "required": [
+        {
+          "name": "OC",
+          "type": "string",
+          "description": "사용자 이메일의 ID"
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "value": "eflaw",
+          "description": "서비스 대상"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "enum": ["HTML", "XML", "JSON"],
+          "default": "XML",
+          "description": "출력 형태"
+        }
+      ],
+      "conditionalRequired": [
+        {
+          "name": "ID",
+          "type": "string",
+          "description": "법령 ID (ID 또는 MST 중 하나 필수, ID로 검색 시 현행 법령 본문 조회)",
+          "alternativeWith": "MST"
+        },
+        {
+          "name": "MST",
+          "type": "string",
+          "description": "법령 마스터 번호 (lsi_seq 값)",
+          "alternativeWith": "ID",
+          "requiresWith": ["efYd"]
+        },
+        {
+          "name": "efYd",
+          "type": "int",
+          "format": "YYYYMMDD",
+          "description": "법령의 시행일자 (MST 사용시 필수, ID 사용시 무시)"
+        }
+      ],
+      "optional": [
+        {
+          "name": "JO",
+          "type": "int",
+          "format": "NNNNNN",
+          "description": "조번호 (6자리: 조번호4자리+조가지번호2자리, 예: 000200=2조, 001002=10조의2)"
+        },
+        {
+          "name": "chrClsCd",
+          "type": "string",
+          "enum": ["010201", "010202"],
+          "enumLabels": { "010201": "원문", "010202": "한글" },
+          "default": "010202",
+          "description": "원문/한글 여부"
+        }
+      ]
+    },
+    
+    "responseFields": {
+      "wrapper": "법령",
+      "sections": {
+        "기본정보": [
+          { "name": "법령ID", "type": "int", "description": "법령ID" },
+          { "name": "공포일자", "type": "int", "description": "공포일자" },
+          { "name": "공포번호", "type": "int", "description": "공포번호" },
+          { "name": "언어", "type": "string", "description": "언어종류" },
+          { "name": "법종구분", "type": "string", "description": "법종류의 구분" },
+          { "name": "법종구분코드", "type": "string", "description": "법종구분코드" },
+          { "name": "법령명_한글", "type": "string", "description": "한글법령명" },
+          { "name": "법령명_한자", "type": "string", "description": "법령명_한자" },
+          { "name": "법령명약칭", "type": "string", "description": "법령명약칭" },
+          { "name": "편장절관", "type": "int", "description": "편장절관 일련번호" },
+          { "name": "소관부처코드", "type": "int", "description": "소관부처코드" },
+          { "name": "소관부처", "type": "string", "description": "소관부처명" },
+          { "name": "전화번호", "type": "string", "description": "전화번호" },
+          { "name": "시행일자", "type": "int", "description": "시행일자" },
+          { "name": "제개정구분", "type": "string", "description": "제개정구분" },
+          { "name": "조문시행일자문자열", "type": "string", "description": "조문시행일자문자열" },
+          { "name": "별표시행일자문자열", "type": "string", "description": "별표시행일자문자열" },
+          { "name": "별표편집여부", "type": "string", "description": "별표편집여부" },
+          { "name": "공포법령여부", "type": "string", "description": "공포법령여부" },
+          { "name": "부서명", "type": "string", "description": "연락부서명" },
+          { "name": "부서연락처", "type": "string", "description": "연락부서 전화번호" },
+          { "name": "공동부령구분", "type": "string", "description": "공동부령의 구분" },
+          { "name": "구분코드", "type": "string", "description": "공동부령구분 구분코드" }
+        ],
+        "조문": {
+          "repeatable": true,
+          "tag": "조문단위",
+          "fields": [
+            { "name": "조문번호", "type": "int", "description": "조문번호" },
+            { "name": "조문가지번호", "type": "int", "description": "조문가지번호" },
+            { "name": "조문여부", "type": "string", "description": "조문여부" },
+            { "name": "조문제목", "type": "string", "description": "조문제목" },
+            { "name": "조문시행일자", "type": "int", "description": "조문시행일자" },
+            { "name": "조문제개정유형", "type": "string", "description": "조문제개정유형" },
+            { "name": "조문이동이전", "type": "int", "description": "조문이동이전" },
+            { "name": "조문이동이후", "type": "int", "description": "조문이동이후" },
+            { "name": "조문변경여부", "type": "string", "description": "Y값이 있으면 해당 조문내에 변경 내용 있음" },
+            { "name": "조문내용", "type": "string", "description": "조문내용" },
+            { "name": "조문참고자료", "type": "string", "description": "조문참고자료" }
+          ],
+          "children": {
+            "항": {
+              "repeatable": true,
+              "fields": [
+                { "name": "항번호", "type": "int", "description": "항번호" },
+                { "name": "항제개정유형", "type": "string", "description": "항제개정유형" },
+                { "name": "항제개정일자문자열", "type": "string", "description": "항제개정일자문자열" },
+                { "name": "항내용", "type": "string", "description": "항내용" }
+              ],
+              "children": {
+                "호": {
+                  "repeatable": true,
+                  "fields": [
+                    { "name": "호번호", "type": "int", "description": "호번호" },
+                    { "name": "호내용", "type": "string", "description": "호내용" }
+                  ],
+                  "children": {
+                    "목": {
+                      "repeatable": true,
+                      "fields": [
+                        { "name": "목번호", "type": "string", "description": "목번호" },
+                        { "name": "목내용", "type": "string", "description": "목내용" }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "부칙": {
+          "repeatable": true,
+          "fields": [
+            { "name": "부칙공포일자", "type": "int", "description": "부칙공포일자" },
+            { "name": "부칙공포번호", "type": "int", "description": "부칙공포번호" },
+            { "name": "부칙내용", "type": "string", "description": "부칙내용" }
+          ]
+        },
+        "별표": {
+          "repeatable": true,
+          "fields": [
+            { "name": "별표번호", "type": "int", "description": "별표번호" },
+            { "name": "별표가지번호", "type": "int", "description": "별표가지번호" },
+            { "name": "별표구분", "type": "string", "description": "별표구분" },
+            { "name": "별표제목", "type": "string", "description": "별표제목" },
+            { "name": "별표제목문자열", "type": "string", "description": "별표제목문자열" },
+            { "name": "별표시행일자", "type": "int", "description": "별표시행일자" },
+            { "name": "별표서식파일링크", "type": "string", "description": "별표서식파일링크" },
+            { "name": "별표HWP파일명", "type": "string", "description": "별표 HWP 파일명" },
+            { "name": "별표서식PDF파일링크", "type": "string", "description": "별표서식PDF파일링크" },
+            { "name": "별표PDF파일명", "type": "string", "description": "별표 PDF 파일명" },
+            { "name": "별표이미지파일명", "type": "string", "description": "별표 이미지 파일명" },
+            { "name": "별표내용", "type": "string", "description": "별표내용" }
+          ]
+        },
+        "개정문": [
+          { "name": "개정문내용", "type": "string", "description": "개정문내용" },
+          { "name": "제개정이유내용", "type": "string", "description": "제개정이유내용" }
+        ]
+      }
+    }
+  },
+  
+  "codes": {
+    "제개정구분": {
+      "300201": "제정",
+      "300202": "일부개정",
+      "300203": "전부개정",
+      "300204": "폐지",
+      "300205": "폐지제정",
+      "300206": "일괄개정",
+      "300207": "일괄폐지",
+      "300208": "기타",
+      "300209": "타법개정",
+      "300210": "타법폐지"
+    },
+    "원문한글": {
+      "010201": "원문",
+      "010202": "한글"
+    },
+    "정렬옵션": {
+      "lasc": "법령오름차순",
+      "ldes": "법령내림차순",
+      "dasc": "공포일자 오름차순",
+      "ddes": "공포일자 내림차순",
+      "nasc": "공포번호 오름차순",
+      "ndes": "공포번호 내림차순",
+      "efasc": "시행일자 오름차순",
+      "efdes": "시행일자 내림차순"
+    }
+  }
+}
+
+
+

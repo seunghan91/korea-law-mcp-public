@@ -1,0 +1,116 @@
+{
+  "index": 106,
+  "name": "법령정보지식베이스 관련법령 API",
+  "target": "lsRlt",
+  "requestUrl": "https://www.law.go.kr/DRF/lawSearch.do?target=lsRlt",
+  "requestParams": [
+    {
+      "name": "OC",
+      "type": "string(필수)",
+      "description": "사용자 이메일의 ID (g4c@korea.kr일경우 OC값=g4c)"
+    },
+    {
+      "name": "target",
+      "type": "string(필수)",
+      "description": "서비스 대상 (관련법령 : lsRlt)"
+    },
+    {
+      "name": "type",
+      "type": "char(필수)",
+      "description": "출력 형태 : XML/JSON"
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "description": "기준법령명에서 검색을 원하는 질의"
+    },
+    {
+      "name": "ID",
+      "type": "int",
+      "description": "법령 ID"
+    },
+    {
+      "name": "lsRltCd",
+      "type": "int",
+      "description": "법령 간 관계 코드"
+    }
+  ],
+  "responseFields": [
+    {
+      "name": "target",
+      "type": "string",
+      "description": "검색서비스 대상"
+    },
+    {
+      "name": "키워드",
+      "type": "string",
+      "description": "검색 단어"
+    },
+    {
+      "name": "검색결과개수",
+      "type": "int",
+      "description": "검색 건수"
+    },
+    {
+      "name": "기준법령ID",
+      "type": "int",
+      "description": "기준법령 ID"
+    },
+    {
+      "name": "기준법령명",
+      "type": "string",
+      "description": "기준법령명"
+    },
+    {
+      "name": "기준법령상세링크",
+      "type": "string",
+      "description": "기준법령 본문 조회링크"
+    },
+    {
+      "name": "관련법령 id",
+      "type": "string",
+      "description": "관련법령 순번"
+    },
+    {
+      "name": "관련법령ID",
+      "type": "int",
+      "description": "관련법령 ID"
+    },
+    {
+      "name": "관련법령명",
+      "type": "string",
+      "description": "관련법령명"
+    },
+    {
+      "name": "법령간관계코드",
+      "type": "string",
+      "description": "법령간관계코드"
+    },
+    {
+      "name": "법령간관계",
+      "type": "string",
+      "description": "법령간관계"
+    },
+    {
+      "name": "관련법령상세링크",
+      "type": "string",
+      "description": "관련법령 본문 조회링크"
+    },
+    {
+      "name": "관련법령조회링크",
+      "type": "string",
+      "description": "해당 관련법령을 기준법령으로 한 관련법령 정보 조회링크"
+    }
+  ],
+  "sampleUrls": [
+    {
+      "description": "1. 법령정보지식베이스 관련법령 XML 조회",
+      "url": "https://www.law.go.kr/DRF/lawSearch.do?OC=test&target=lsRlt&type=XML"
+    },
+    {
+      "description": "2. 법령정보지식베이스 관련법령 JSON 조회",
+      "url": "https://www.law.go.kr/DRF/lawSearch.do?OC=test&target=lsRlt&type=JSON"
+    }
+  ],
+  "crawledAt": "2025-12-10T09:23:06.022Z"
+}
