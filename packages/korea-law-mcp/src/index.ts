@@ -2354,15 +2354,28 @@ app.post('/tools/search_precedents_by_law', async (req: Request, res: Response) 
 // ES `ordinances_v1` 인덱스 사용. BM25 + KNN + RRF 하이브리드 검색.
 // 엔드포인트 요구 env: ELASTICSEARCH_ADDR, ELASTICSEARCH_USERNAME, ELASTICSEARCH_PASSWORD
 
-let ordinanceEs: any = null;
+// backend 는 direct ES 클라이언트 또는 SaaS 프록시 config 중 하나.
+// korea-law ordinance-tools 는 둘 다 수용 (OrdinanceBackend union type).
+let ordinanceBackend: any = null;
 let ordinanceTools: any = null;
 
 async function loadOrdinanceTools() {
   if (ordinanceTools) return ordinanceTools;
   try {
     const mod = await import('korea-law');
-    const { ElasticsearchClient, configFromEnv } = mod as any;
-    ordinanceEs = new ElasticsearchClient(configFromEnv());
+    const { ElasticsearchClient, runtimeConfigFromEnv } = mod as any;
+    const runtime = runtimeConfigFromEnv();
+
+    if (runtime.mode === 'saas') {
+      // Law Check MCP 경유 모드 — API 키 하나로 hosted 서비스 호출
+      ordinanceBackend = runtime.saas;
+      console.log(`✅ Ordinance tools loaded (SaaS mode → ${runtime.saas.endpoint})`);
+    } else {
+      // Direct ES 모드 — 본인 ES 클러스터 직접 호출
+      ordinanceBackend = new ElasticsearchClient(runtime.es);
+      console.log('✅ Ordinance tools loaded (direct ES ordinances_v1)');
+    }
+
     ordinanceTools = {
       searchOrdinances: (mod as any).searchOrdinances,
       getOrdinanceText: (mod as any).getOrdinanceText,
@@ -2370,7 +2383,6 @@ async function loadOrdinanceTools() {
       compareOrdinancesAcrossMunicipalities: (mod as any).compareOrdinancesAcrossMunicipalities,
       listMunicipalities: (mod as any).listMunicipalities,
     };
-    console.log('✅ Ordinance tools loaded (ES ordinances_v1)');
     return ordinanceTools;
   } catch (e) {
     console.warn('⚠️ Ordinance tools unavailable:', (e as Error).message);
@@ -2385,7 +2397,7 @@ app.post('/tools/search_ordinances', async (req: Request, res: Response) => {
       res.status(503).json({ status: 'ERROR', message: 'Ordinance tools unavailable (ES config missing?)' });
       return;
     }
-    const result = await tools.searchOrdinances(req.body, ordinanceEs);
+    const result = await tools.searchOrdinances(req.body, ordinanceBackend);
     res.json(result);
   } catch (e) {
     console.error('search_ordinances error:', e);
@@ -2400,7 +2412,7 @@ app.post('/tools/get_ordinance_text', async (req: Request, res: Response) => {
       res.status(503).json({ status: 'ERROR', message: 'Ordinance tools unavailable' });
       return;
     }
-    const result = await tools.getOrdinanceText(req.body, ordinanceEs);
+    const result = await tools.getOrdinanceText(req.body, ordinanceBackend);
     res.json(result);
   } catch (e) {
     console.error('get_ordinance_text error:', e);
@@ -2415,7 +2427,7 @@ app.post('/tools/get_ordinance_article', async (req: Request, res: Response) => 
       res.status(503).json({ status: 'ERROR', message: 'Ordinance tools unavailable' });
       return;
     }
-    const result = await tools.getOrdinanceArticle(req.body, ordinanceEs);
+    const result = await tools.getOrdinanceArticle(req.body, ordinanceBackend);
     res.json(result);
   } catch (e) {
     console.error('get_ordinance_article error:', e);
@@ -2430,7 +2442,7 @@ app.post('/tools/compare_ordinances_across_municipalities', async (req: Request,
       res.status(503).json({ status: 'ERROR', message: 'Ordinance tools unavailable' });
       return;
     }
-    const result = await tools.compareOrdinancesAcrossMunicipalities(req.body, ordinanceEs);
+    const result = await tools.compareOrdinancesAcrossMunicipalities(req.body, ordinanceBackend);
     res.json(result);
   } catch (e) {
     console.error('compare_ordinances error:', e);

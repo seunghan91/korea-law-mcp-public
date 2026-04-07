@@ -23,22 +23,97 @@ export interface ElasticsearchConfig {
   timeoutMs: number;
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// SaaS 프록시 모드 — Law Check MCP 호스팅 서비스를 통해 자치법규 도구를 호출.
+//
+// 사용자는 ELASTICSEARCH_* 자격증명 없이 LAW_CHECK_API_KEY 하나만 설정하면
+// https://www.law-check.com/api/mcp (JSON-RPC 2.0) 를 경유하여 우리가 운영 중인
+// weknora_legal_v2 / ordinances_v1 ES 클러스터에 질의할 수 있다.
+//
+// 이 모드는 korea-law npm 패키지 OSS 사용자가 자체 ES 클러스터를 구성하지 않고도
+// 자치법규 하이브리드 검색을 바로 쓸 수 있게 하는 것이 목적이다. 본인 ES 클러스터를
+// 운영해서 별도 인덱스 / 스키마 변형을 하려는 power user 는 여전히 ELASTICSEARCH_*
+// 직접 경로를 사용할 수 있다.
+//
+// 배경 / 설계 결정: Law Check MCP v2.0 (apps/legal_audit_web/docs/MCP_SERVER_REDESIGN.md)
+// ─────────────────────────────────────────────────────────────────────────────
+
+export interface SaasConfig {
+  /** Law Check MCP JSON-RPC 엔드포인트 */
+  endpoint: string;
+  /** UserMcpKey 64-hex Bearer */
+  apiKey: string;
+  /** 요청 타임아웃 (ms) */
+  timeoutMs: number;
+}
+
+export type RuntimeConfig =
+  | { mode: 'direct'; es: ElasticsearchConfig }
+  | { mode: 'saas'; saas: SaasConfig };
+
+/**
+ * 환경변수에서 런타임 설정을 로드한다.
+ *
+ * 우선순위:
+ *   1. LAW_CHECK_API_KEY 있음 → saas 모드 (권장, 설정 최소화)
+ *   2. ELASTICSEARCH_ADDR + USERNAME + PASSWORD 있음 → direct 모드 (OSS 셀프호스트)
+ *   3. 둘 다 없음 → 에러
+ *
+ * 하위호환: 기존 configFromEnv() 호출부는 direct 모드 ES 설정만 반환받도록 오버로드.
+ */
 export function configFromEnv(): ElasticsearchConfig {
+  const runtime = runtimeConfigFromEnv();
+  if (runtime.mode === 'saas') {
+    throw new Error(
+      'configFromEnv() called but LAW_CHECK_API_KEY is set (saas mode). ' +
+      'Use runtimeConfigFromEnv() instead, or unset LAW_CHECK_API_KEY to force direct ES mode.'
+    );
+  }
+  return runtime.es;
+}
+
+export function runtimeConfigFromEnv(): RuntimeConfig {
+  // 1) SaaS 모드 (권장) — Law Check MCP 경유
+  const apiKey = process.env.LAW_CHECK_API_KEY;
+  if (apiKey) {
+    if (!/^[a-f0-9]{64}$/i.test(apiKey.trim())) {
+      throw new Error(
+        'LAW_CHECK_API_KEY must be a 64-char hex string. ' +
+        'Get one at https://www.law-check.com/settings/mcp-keys'
+      );
+    }
+    return {
+      mode: 'saas',
+      saas: {
+        endpoint: process.env.LAW_CHECK_MCP_URL || 'https://www.law-check.com/api/mcp',
+        apiKey: apiKey.trim(),
+        timeoutMs: Number(process.env.LAW_CHECK_TIMEOUT_MS || 60_000),
+      },
+    };
+  }
+
+  // 2) Direct ES 모드 — 셀프호스트 ES 클러스터
   const url = process.env.ELASTICSEARCH_ADDR || process.env.ELASTICSEARCH_URL;
   const username = process.env.ELASTICSEARCH_USERNAME;
   const password = process.env.ELASTICSEARCH_PASSWORD;
 
   if (!url || !username || !password) {
     throw new Error(
-      'Elasticsearch config missing. Set ELASTICSEARCH_ADDR/URL, ELASTICSEARCH_USERNAME, ELASTICSEARCH_PASSWORD.'
+      'korea-law ordinance tools need either:\n' +
+      '  (recommended) LAW_CHECK_API_KEY=<64-hex>            # saas mode — use Law Check hosted service\n' +
+      '  (self-host)    ELASTICSEARCH_ADDR + ELASTICSEARCH_USERNAME + ELASTICSEARCH_PASSWORD\n\n' +
+      'Get a hosted API key at https://www.law-check.com/settings/mcp-keys'
     );
   }
 
   return {
-    url: url.replace(/\/+$/, ''),
-    username,
-    password,
-    timeoutMs: 60_000,
+    mode: 'direct',
+    es: {
+      url: url.replace(/\/+$/, ''),
+      username,
+      password,
+      timeoutMs: 60_000,
+    },
   };
 }
 

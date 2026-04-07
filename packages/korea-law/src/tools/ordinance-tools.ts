@@ -14,11 +14,88 @@
  *   5. listMunicipalities                       — 지자체 마스터
  */
 
-import { ElasticsearchClient } from '../es/client';
+import { ElasticsearchClient, SaasConfig } from '../es/client';
 import { embedTexts } from '../embedding/ordinance-embedder';
 import { METROPOLITAN_GOVERNMENTS, BASIC_GOVERNMENTS_SAMPLE } from '../sync/local-governments';
 
 export const ORDINANCES_INDEX = 'ordinances_v1';
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 백엔드 선택 — direct ES 또는 Law Check SaaS 프록시.
+//
+// 기존 호출부는 `es: ElasticsearchClient` 를 그대로 넘기면 direct 모드가 동작한다.
+// 새 호출부는 `backend: SaasConfig` 를 넘겨서 Law Check 서비스로 위임할 수 있다.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export type OrdinanceBackend = ElasticsearchClient | SaasConfig;
+
+function isSaas(backend: OrdinanceBackend): backend is SaasConfig {
+  return (backend as SaasConfig).endpoint !== undefined &&
+         (backend as SaasConfig).apiKey !== undefined;
+}
+
+/**
+ * SaaS 모드에서 Law Check MCP 의 JSON-RPC `tools/call` 로 위임한다.
+ * Law Check 서버가 인증/권한/사용량 집계를 전부 담당하므로 이 함수는 얇은 래퍼다.
+ *
+ * 에러 처리:
+ *  - 네트워크 실패 → ERROR status 반환 (상위에서 retry 판단)
+ *  - 401/403      → API 키 문제. 사용자에게 재발급 안내.
+ *  - 429          → daily cost budget exceeded.
+ */
+async function callLawCheckTool(
+  saas: SaasConfig,
+  toolName: string,
+  args: Record<string, unknown>
+): Promise<unknown> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), saas.timeoutMs);
+
+  try {
+    const response = await fetch(saas.endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${saas.apiKey}`,
+      },
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        id: `korea-law-${Date.now()}`,
+        method: 'tools/call',
+        params: { name: toolName, arguments: args },
+      }),
+      signal: controller.signal,
+    });
+
+    const text = await response.text();
+    if (!response.ok) {
+      throw new Error(`Law Check MCP ${toolName} failed: HTTP ${response.status} — ${text.slice(0, 200)}`);
+    }
+
+    const parsed = JSON.parse(text);
+    if (parsed.error) {
+      throw new Error(`Law Check MCP ${toolName} error: ${parsed.error.message || JSON.stringify(parsed.error)}`);
+    }
+
+    // MCP JSON-RPC 응답은 result.content[0].text 에 JSON stringified payload 가 담긴다.
+    // 우리 Rails 서버(mcp_controller.rb) 는 payload 를 { status, ... } hash 로 직렬화해 보낸다.
+    const content = parsed.result?.content;
+    if (Array.isArray(content) && content.length > 0) {
+      const first = content[0];
+      if (first?.type === 'text' && typeof first.text === 'string') {
+        try {
+          return JSON.parse(first.text);
+        } catch {
+          return { status: 'OK', message: first.text };
+        }
+      }
+    }
+    return parsed.result;
+  } finally {
+    clearTimeout(timer);
+  }
+}
 
 // ============================================
 // 공용 타입
@@ -86,7 +163,7 @@ export interface SearchOrdinancesResult {
  */
 export async function searchOrdinances(
   params: SearchOrdinancesParams,
-  es: ElasticsearchClient
+  backend: OrdinanceBackend
 ): Promise<SearchOrdinancesResult> {
   if (!params.search_text || !params.search_text.trim()) {
     return {
@@ -99,6 +176,24 @@ export async function searchOrdinances(
     };
   }
 
+  // SaaS 프록시 경로 — Law Check MCP 가 ES 접근을 담당.
+  if (isSaas(backend)) {
+    try {
+      const result = await callLawCheckTool(backend, 'search_ordinances', params as any);
+      return result as SearchOrdinancesResult;
+    } catch (e: any) {
+      return {
+        status: 'ERROR',
+        results: [],
+        total: 0,
+        source: 'elasticsearch',
+        strategy: 'hybrid_rrf',
+        message: `SaaS proxy: ${e.message || String(e)}`,
+      };
+    }
+  }
+
+  const es = backend;
   const limit = Math.min(Math.max(params.limit || 10, 1), 50);
   const candidates = limit * 5; // 각 retriever에서 candidates * 5개 수집 → RRF 후 limit
   const filters = buildFilters(params);
@@ -211,12 +306,22 @@ export interface GetOrdinanceTextResult {
 
 export async function getOrdinanceText(
   params: GetOrdinanceTextParams,
-  es: ElasticsearchClient
+  backend: OrdinanceBackend
 ): Promise<GetOrdinanceTextResult> {
   if (!params.mst) {
     return { status: 'ERROR', message: 'mst is required' };
   }
 
+  if (isSaas(backend)) {
+    try {
+      const result = await callLawCheckTool(backend, 'get_ordinance_text', params as any);
+      return result as GetOrdinanceTextResult;
+    } catch (e: any) {
+      return { status: 'ERROR', message: `SaaS proxy: ${e.message || String(e)}` };
+    }
+  }
+
+  const es = backend;
   const includeAppendices = params.include_appendices !== false;
   const docTypes = includeAppendices
     ? ['ordinance', 'article', 'appendix']
