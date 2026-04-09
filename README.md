@@ -1,15 +1,18 @@
-# korea-law-mcp-public
+# Korea Law Hub — Open Source Core
 
-> **한국 법령·판례·자치법규 검색을 위한 MCP 서버 (공개 버전)**
+> **한국 법령·판례·자치법규를 AI가 환각 없이 인용할 수 있게 해주는 오픈 데이터 허브의 MIT 공개 코어.**
 > 법제처 Open API + Elasticsearch 하이브리드 검색 + BGE-M3 임베딩 기반 RAG 도구.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D22.0.0-green.svg)](https://nodejs.org)
 
+> **리포명 주의**: GitHub 리포 이름은 레거시로 `korea-law-mcp-public` 이지만, 프로젝트 브랜드는 **Korea Law Hub** 로 통일 중입니다. 기존 clone remote 호환을 위해 리포명은 유지됩니다.
+
 ## 개요
 
-한국 법률 AI 앱을 만들 때 반복적으로 필요한 검색·조회·검증 로직을 **MCP(Model Context Protocol) 도구**로 감싼 서버입니다.
-본 리포는 [seunghan91/law](https://github.com/seunghan91/law) 모노레포에서 공개 가능한 부분만 발췌·sanitize한 공개 버전입니다.
+**Korea Law Hub** 는 한국 법률 AI 앱을 만들 때 반복적으로 필요한 검색·조회·검증 로직을 **MCP(Model Context Protocol) 도구**로 감싼 오픈 데이터 허브입니다. 법제처·국회·대법원 등 공공 법률 데이터를 AI-ready 형태로 노출하는 것이 목표이며, 허브 본체는 공공성·오픈액세스 지향입니다.
+
+본 리포는 [seunghan91/law](https://github.com/seunghan91/law) 모노레포에서 공개 가능한 부분만 발췌·sanitize한 공개 코어이며, Hub 의 Core Adapter (Render REST 래퍼) + Engine (npm `korea-law`) 에 해당합니다. Hosted Gateway (`law-check.com/api/mcp`) 는 이 코어 위에 인증/rate limit/사용량 계측을 얹은 SaaS 래퍼입니다.
 
 ### 지원하는 검색 대상
 
@@ -32,7 +35,7 @@
 ## 모노레포 구조
 
 ```
-korea-law-mcp-public/
+korea-law-mcp-public/   # (legacy 리포명, 브랜드는 Korea Law Hub)
 ├── packages/
 │   ├── korea-law/              # 핵심 엔진 (검색, ES 클라이언트, 임베딩, 파서, sync)
 │   │   ├── src/
@@ -121,7 +124,7 @@ ES 하이브리드 검색을 쓰려면:
 | 프로젝트 | 데이터 소스 | 검색 방식 | 자치법규 | 형태소 분석 | 벡터 검색 |
 |---|---|---|---|---|---|
 | [chrisryugj/korean-law-mcp](https://github.com/chrisryugj/korean-law-mcp) (류주임) | 법제처 Open API | substring | `chain_ordinance_compare` | ❌ | ❌ |
-| **korea-law-mcp-public** (본 리포) | 법제처 + 자체 ES 인덱스 | BM25 + 벡터 + RRF | ES `ordinances_v1` (조문 단위) | nori + 법률 동의어 | BGE-M3 1024dim |
+| **Korea Law Hub** (본 리포) | 법제처 + 자체 ES 인덱스 | BM25 + 벡터 + RRF | ES `ordinances_v1` (조문 단위) | nori + 법률 동의어 | BGE-M3 1024dim |
 
 **보완 관계**: 류주임 프로젝트는 법제처 공식 API의 **얇은 래퍼**, 본 리포는 그 위에 **검색 엔진 기반 RAG 인프라**를 추가한 형태. Claude Desktop에 **둘 다 등록**해 병행 사용 권장.
 
