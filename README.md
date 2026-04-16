@@ -95,7 +95,7 @@ pnpm dev:mcp
 ES 하이브리드 검색을 쓰려면:
 1. `packages/korea-law/src/es/ordinances-mapping.json` 참고하여 `ordinances_v1` 인덱스 생성
 2. BGE-M3 임베딩 서버 기동 (별도 — [upskyy/bge-m3-korean](https://huggingface.co/upskyy/bge-m3-korean) 또는 [nlpai-lab/KURE-v1](https://huggingface.co/nlpai-lab/KURE-v1) 권장)
-3. `pnpm sync:ordinances --municipality 광진구 --limit 5` 로 작은 샘플부터
+3. `pnpm sync:ordinances --municipality 노원구 --limit 5` 로 작은 샘플부터
 
 ---
 
