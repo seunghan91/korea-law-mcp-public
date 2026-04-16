@@ -128,6 +128,65 @@ ES 하이브리드 검색을 쓰려면:
 
 **보완 관계**: 류주임 프로젝트는 법제처 공식 API의 **얇은 래퍼**, 본 리포는 그 위에 **검색 엔진 기반 RAG 인프라**를 추가한 형태. Claude Desktop에 **둘 다 등록**해 병행 사용 권장.
 
+### 성격 차이 상세
+
+두 프로젝트는 같은 도메인(한국 법률 MCP)이지만 **목표 계층·인프라 깊이·운영 모델**이 달라 경쟁보다는 역할 분담에 가깝습니다.
+
+#### 1. 목적 레이어
+
+| 항목 | 류주임 `korean-law-mcp` | 본 프로젝트 `korea-law-mcp-public` |
+|---|---|---|
+| 정체성 | 법제처 Open API의 **편의 래퍼** | **AI RAG 검색 인프라** |
+| 1차 사용자 | Claude Desktop 개인 사용자 | 법률 AI 앱 개발자·SaaS 운영자 |
+| 검색 품질 기준 | "법제처가 돌려주는 결과" 그대로 | 검색 엔진 튜닝 결과 (BM25 + Dense + RRF) |
+| 설치 부담 | 낮음 (원격 URL 등록만) | 높음 (ES 9.x + 임베딩 서버 구동 필요) |
+
+#### 2. 아키텍처 계층
+
+| 항목 | 류주임 | 본 프로젝트 |
+|---|---|---|
+| 레이어 수 | 1단 (MCP → 법제처 API) | 3단 (MCP → Engine → ES/법제처) |
+| 상태 저장 | stateless (요청 시마다 fetch) | ES 인덱스 + SQLite/Postgres 캐시 |
+| 배포 형상 | Fly.io 단일 서비스 | Render(API) + ES 클러스터 + BGE-M3 임베딩 서버 |
+| 외부 의존성 | 법제처 API only | 법제처 + Elasticsearch 9.x + 임베딩 서버 |
+| 모노레포 여부 | 단일 패키지 | `korea-law` (엔진) + `korea-law-mcp` (REST 래퍼) |
+
+#### 3. 자치법규 처리 (가장 큰 차별점)
+
+| 항목 | 류주임 | 본 프로젝트 |
+|---|---|---|
+| 저장 단위 | 없음 — 요청 시 법제처 fetch | 조문/별표 단위로 분리 indexing (`ordinances_v1`) |
+| XML 파싱 | 원본 그대로 노출 | `ordinance-parser.ts` — 조문·별표·부칙·개정이유 분리 |
+| 검색 방식 | `chain_ordinance_compare` (문자열 매칭) | BM25(nori + 법률 동의어 120+) + KNN(BGE-M3 1024dim bbq_hnsw) + RRF fusion |
+| 쿼리 분류 | 없음 | 지자체명/법령명/처분 키워드 자동 감지 → tier 라우팅 |
+| 변경 감지 | 없음 | SHA-256 해시 기반 resumable sync |
+| LLM 인용 단위 | 법령 전체 | 조문(article) 단위 — 컨텍스트 윈도우 효율 ↑ |
+
+#### 4. 도구 개수와 스코프 전략
+
+| 항목 | 류주임 | 본 프로젝트 |
+|---|---|---|
+| MCP 도구 수 | 64개 | 11개 (자치법규 전용 5개 포함) |
+| 스코프 전략 | **넓고 얕게** — 법제처 엔드포인트 대부분 노출 | **좁고 깊게** — 자치법규 + 국가법령 조회/검증 중심 |
+| 고유 확장 | `chain_*` 체이닝 도구 (`chain_full_research`, `chain_ordinance_compare` 등) | `search_ordinances`, `compare_ordinances_across_municipalities`, `list_municipalities` |
+| 공통 영역 | 국가법령·판례·행정규칙·헌재결정·법률용어 | 동일 (법제처 얇은 래퍼로 호환) |
+
+#### 5. 운영 모델
+
+| 항목 | 류주임 | 본 프로젝트 |
+|---|---|---|
+| 라이선스 | 오픈소스 | MIT Core + SaaS Gateway (`law-check.com`) |
+| 인증 | LAW_OC pass-through | Core: LAW_OC + ES 자격증명 / SaaS: 자체 API Key + rate limit |
+| 호스팅 | 저자가 Fly.io에 무료 공유 | self-host 가이드 + `law-check.com` 유료 SaaS |
+| 데이터 최신성 | 법제처 실시간 (매 요청 fetch) | sync 배치 주기 의존 (자치법규: 일간/주간) |
+| SLA | best effort | SaaS는 rate limit/사용량 계측 제공 |
+
+#### 6. 선택 기준 (언제 무엇을 쓸지)
+
+- **류주임 프로젝트가 적합**: Claude Desktop 개인 사용 / 법제처 원본 그대로 질의해도 충분 / 추가 인프라 설치 부담 회피 / 넓은 도구 카탈로그 필요
+- **본 프로젝트가 적합**: 자치법규 기반 AI RAG 앱 구축 / 형태소·동의어·벡터 검색 품질 요구 / 상용 법률 서비스 / LLM 컨텍스트 효율을 위한 조문 단위 인용 필요
+- **병행 사용 권장**: Claude Desktop에 두 MCP 서버를 모두 등록하면 상호 보완됨 — 류주임 = 신속한 원본 조회, 본 프로젝트 = 자치법규 심층 검색
+
 ---
 
 ## 라이선스
