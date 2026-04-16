@@ -123,10 +123,10 @@ ES 하이브리드 검색을 쓰려면:
 
 | 프로젝트 | 데이터 소스 | 검색 방식 | 자치법규 | 형태소 분석 | 벡터 검색 |
 |---|---|---|---|---|---|
-| [chrisryugj/korean-law-mcp](https://github.com/chrisryugj/korean-law-mcp) (류주임) | 법제처 Open API | substring | `chain_ordinance_compare` | ❌ | ❌ |
+| [chrisryugj/korean-law-mcp](https://github.com/chrisryugj/korean-law-mcp) ([류승인 주무관](https://github.com/chrisryugj)) | 법제처 Open API | substring | `chain_ordinance_compare` | ❌ | ❌ |
 | **Korea Law Hub** (본 리포) | 법제처 + 자체 ES 인덱스 | BM25 + 벡터 + RRF | ES `ordinances_v1` (조문 단위) | nori + 법률 동의어 | BGE-M3 1024dim |
 
-**보완 관계**: 류주임 프로젝트는 법제처 공식 API의 **얇은 래퍼**, 본 리포는 그 위에 **검색 엔진 기반 RAG 인프라**를 추가한 형태. Claude Desktop에 **둘 다 등록**해 병행 사용 권장.
+**보완 관계**: [류승인 주무관](https://github.com/chrisryugj)의 프로젝트는 법제처 공식 API의 **얇은 래퍼**, 본 리포는 그 위에 **검색 엔진 기반 RAG 인프라**를 추가한 형태. Claude Desktop에 **둘 다 등록**해 병행 사용 권장.
 
 ### 성격 차이 상세
 
@@ -134,7 +134,7 @@ ES 하이브리드 검색을 쓰려면:
 
 #### 1. 목적 레이어
 
-| 항목 | 류주임 `korean-law-mcp` | 본 프로젝트 `korea-law-mcp-public` |
+| 항목 | [류승인 주무관](https://github.com/chrisryugj) `korean-law-mcp` | 본 프로젝트 `korea-law-mcp-public` |
 |---|---|---|
 | 정체성 | 법제처 Open API의 **편의 래퍼** | **AI RAG 검색 인프라** |
 | 1차 사용자 | Claude Desktop 개인 사용자 | 법률 AI 앱 개발자·SaaS 운영자 |
@@ -143,7 +143,7 @@ ES 하이브리드 검색을 쓰려면:
 
 #### 2. 아키텍처 계층
 
-| 항목 | 류주임 | 본 프로젝트 |
+| 항목 | 류승인 주무관 | 본 프로젝트 |
 |---|---|---|
 | 레이어 수 | 1단 (MCP → 법제처 API) | 3단 (MCP → Engine → ES/법제처) |
 | 상태 저장 | stateless (요청 시마다 fetch) | ES 인덱스 + SQLite/Postgres 캐시 |
@@ -153,7 +153,7 @@ ES 하이브리드 검색을 쓰려면:
 
 #### 3. 자치법규 처리 (가장 큰 차별점)
 
-| 항목 | 류주임 | 본 프로젝트 |
+| 항목 | 류승인 주무관 | 본 프로젝트 |
 |---|---|---|
 | 저장 단위 | 없음 — 요청 시 법제처 fetch | 조문/별표 단위로 분리 indexing (`ordinances_v1`) |
 | XML 파싱 | 원본 그대로 노출 | `ordinance-parser.ts` — 조문·별표·부칙·개정이유 분리 |
@@ -164,7 +164,7 @@ ES 하이브리드 검색을 쓰려면:
 
 #### 4. 도구 개수와 스코프 전략
 
-| 항목 | 류주임 | 본 프로젝트 |
+| 항목 | 류승인 주무관 | 본 프로젝트 |
 |---|---|---|
 | MCP 도구 수 | 64개 | 11개 (자치법규 전용 5개 포함) |
 | 스코프 전략 | **넓고 얕게** — 법제처 엔드포인트 대부분 노출 | **좁고 깊게** — 자치법규 + 국가법령 조회/검증 중심 |
@@ -173,7 +173,7 @@ ES 하이브리드 검색을 쓰려면:
 
 #### 5. 운영 모델
 
-| 항목 | 류주임 | 본 프로젝트 |
+| 항목 | 류승인 주무관 | 본 프로젝트 |
 |---|---|---|
 | 라이선스 | 오픈소스 | MIT Core + SaaS Gateway (`law-check.com`) |
 | 인증 | LAW_OC pass-through | Core: LAW_OC + ES 자격증명 / SaaS: 자체 API Key + rate limit |
@@ -183,9 +183,9 @@ ES 하이브리드 검색을 쓰려면:
 
 #### 6. 선택 기준 (언제 무엇을 쓸지)
 
-- **류주임 프로젝트가 적합**: Claude Desktop 개인 사용 / 법제처 원본 그대로 질의해도 충분 / 추가 인프라 설치 부담 회피 / 넓은 도구 카탈로그 필요
+- **[류승인 주무관](https://github.com/chrisryugj)의 프로젝트가 적합**: Claude Desktop 개인 사용 / 법제처 원본 그대로 질의해도 충분 / 추가 인프라 설치 부담 회피 / 넓은 도구 카탈로그 필요
 - **본 프로젝트가 적합**: 자치법규 기반 AI RAG 앱 구축 / 형태소·동의어·벡터 검색 품질 요구 / 상용 법률 서비스 / LLM 컨텍스트 효율을 위한 조문 단위 인용 필요
-- **병행 사용 권장**: Claude Desktop에 두 MCP 서버를 모두 등록하면 상호 보완됨 — 류주임 = 신속한 원본 조회, 본 프로젝트 = 자치법규 심층 검색
+- **병행 사용 권장**: Claude Desktop에 두 MCP 서버를 모두 등록하면 상호 보완됨 — [류승인 주무관](https://github.com/chrisryugj) = 신속한 원본 조회, 본 프로젝트 = 자치법규 심층 검색
 
 ---
 
@@ -200,6 +200,6 @@ MIT. 자유롭게 포크·수정·배포·상업 사용 가능.
 - [원본 monorepo (private)](https://github.com/seunghan91/law)
 - [설계 문서 (자치법규 ES 인덱싱)](https://github.com/seunghan91/law/blob/main/docs/todo/09-ordinance-elasticsearch-indexing.md)
 - [법제처 Open API](https://open.law.go.kr)
-- [류주임 korean-law-mcp](https://github.com/chrisryugj/korean-law-mcp)
+- [류승인 주무관 korean-law-mcp](https://github.com/chrisryugj/korean-law-mcp) — [GitHub 프로필](https://github.com/chrisryugj)
 - [BGE-M3 임베딩 모델](https://huggingface.co/BAAI/bge-m3)
 - [KURE-v1 (한국어 BGE-M3 파인튜닝)](https://huggingface.co/nlpai-lab/KURE-v1)
